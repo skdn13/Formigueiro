@@ -28,6 +28,7 @@ public class Grafo<T> implements GraphADT<T> {
         this.adjMatrix = new boolean[DEFAULT_CAPACITY][DEFAULT_CAPACITY];
         this.vertices = (T[]) (new Object[DEFAULT_CAPACITY]);
         //
+        //
     }
 
     @Override
