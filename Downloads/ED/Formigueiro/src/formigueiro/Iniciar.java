@@ -20,6 +20,7 @@ public class Iniciar {
         Sala sala = new Sala(1, 300, 400, "Sala 1");
         Formigueiro formigueiro = new Formigueiro(sala, 500, 400);
         FormigueiroViewer janela = new FormigueiroViewer(formigueiro);
+        //
     }
 
 }
