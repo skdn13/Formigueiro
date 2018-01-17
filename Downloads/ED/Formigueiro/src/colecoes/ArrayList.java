@@ -36,11 +36,11 @@ public class ArrayList<T> implements ListADT<T> {
     }
 
     @Override
-    public T removeFirst() throws EmptyCollectionException {
+    public T removeFirst() throws recursos.exceptions.EmptyCollectionException {
         T result;
 
         if (isEmpty()) {
-            throw new EmptyCollectionException("Empty List");
+            throw new recursos.exceptions.EmptyCollectionException("Empty List");
         } else {
             result = this.orederedList[0];
             this.last--;
@@ -53,10 +53,10 @@ public class ArrayList<T> implements ListADT<T> {
     }
 
     @Override
-    public T removeLast() throws EmptyCollectionException {
+    public T removeLast() throws recursos.exceptions.EmptyCollectionException {
         T result;
         if (isEmpty()) {
-            throw new EmptyCollectionException("Empty List");
+            throw new recursos.exceptions.EmptyCollectionException("Empty List");
         } else {
             this.last--;
             result = this.orederedList[this.last];
@@ -66,7 +66,7 @@ public class ArrayList<T> implements ListADT<T> {
     }
 
     @Override
-    public T remove(T element) throws EmptyCollectionException {
+    public T remove(T element) throws recursos.exceptions.EmptyCollectionException {
         T result = null;
         if (contains(element)) {
             result = this.orederedList[this.position];
@@ -79,18 +79,18 @@ public class ArrayList<T> implements ListADT<T> {
     }
 
     @Override
-    public T first() throws EmptyCollectionException {
+    public T first() throws recursos.exceptions.EmptyCollectionException {
         if (isEmpty()) {
-            throw new EmptyCollectionException("Empty List");
+            throw new recursos.exceptions.EmptyCollectionException("Empty List");
         } else {
             return this.orederedList[this.first];
         }
     }
 
     @Override
-    public T last() throws EmptyCollectionException {
+    public T last() throws recursos.exceptions.EmptyCollectionException {
         if (isEmpty()) {
-            throw new EmptyCollectionException("Empty List");
+            throw new recursos.exceptions.EmptyCollectionException("Empty List");
         } else {
             return this.orederedList[this.last - 1];
         }
@@ -132,7 +132,7 @@ public class ArrayList<T> implements ListADT<T> {
 
     @Override
     public Iterator<T> iterator() {
-        ArrayIterator<T> iterator = new ArrayIterator<T>(this.orederedList, this.last);
+        ArrayIterator<T> iterator = new ArrayIterator<>(this.orederedList, this.last);
         return iterator;
     }
 

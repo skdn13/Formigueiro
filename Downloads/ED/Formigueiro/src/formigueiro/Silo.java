@@ -77,12 +77,12 @@ public class Silo implements ISilo {
     }
 
     @Override
-    public String getDescrição() {
+    public String getDescricao() {
         return this.descricao;
     }
 
     @Override
-    public void setDescrição(String string) {
+    public void setDescricao(String string) {
         this.descricao = string;
     }
 

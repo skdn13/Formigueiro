@@ -5,7 +5,10 @@
  */
 package colecoes;
 
+import Excecoes.EmptyCollectionException;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import recursos.interfaces.collections.GraphADT;
 
 /**
@@ -82,7 +85,7 @@ public class Grafo<T> implements GraphADT<T> {
 
     @Override
     public Iterator iteratorBFS(T t) {
-        Integer x;
+        Integer x = 0;
         LinkedQueue<Integer> transversalQueue = new LinkedQueue<>();
         ArrayUnorderedList<T> resultList = new ArrayUnorderedList<>();
         if (!indexIsValid(getIndex(t))) {
@@ -96,7 +99,11 @@ public class Grafo<T> implements GraphADT<T> {
         transversalQueue.enqueue(new Integer(getIndex(t)));
         visited[getIndex(t)] = true;
         while (!transversalQueue.isEmpty()) {
-            x = transversalQueue.dequeue();
+            try {
+                x = transversalQueue.dequeue();
+            } catch (EmptyCollectionException ex) {
+                ex.printStackTrace();
+            }
             resultList.addToRear(vertices[x.intValue()]);
             for (int i = 0; i < numVertices; i++) {
                 if (adjMatrix[x.intValue()][i] && !visited[i]) {
@@ -121,22 +128,22 @@ public class Grafo<T> implements GraphADT<T> {
         for (int i = 0; i < numVertices; i++) {
             visited[i] = false;
         }
-        transversalStack.push(new Integer(getIndex(t)));
+        transversalStack.enqueue(new Integer(getIndex(t)));
         resultList.addToRear(vertices[getIndex(t)]);
         visited[getIndex(t)] = true;
         while (!transversalStack.isEmpty()) {
-            x = transversalStack.peek();
+            x = transversalStack.first();
             found = false;
             for (int i = 0; (i < numVertices) && !found; i++) {
                 if (adjMatrix[x.intValue()][i] && !visited[i]) {
-                    transversalStack.push(new Integer(i));
+                    transversalStack.enqueue(new Integer(i));
                     resultList.addToRear(vertices[i]);
                     visited[i] = true;
                     found = true;
                 }
             }
             if (!found && !transversalStack.isEmpty()) {
-                transversalStack.pop();
+                transversalStack.dequeue();
             }
 
         }

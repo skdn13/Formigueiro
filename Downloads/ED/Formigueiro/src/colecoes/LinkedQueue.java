@@ -69,12 +69,12 @@ public class LinkedQueue<T> implements QueueADT<T> {
     }
 
     @Override
-    public T dequeue() throws EmptyCollectionException {
+    public T dequeue() throws recursos.exceptions.EmptyCollectionException {
         T element = null;
         LinearNode<T> atual = this.head;
         switch (this.numberOfElements) {
             case 0:
-                throw new EmptyCollectionException("Não há elementos a eliminar!");
+                throw new recursos.exceptions.EmptyCollectionException("Não há elementos a eliminar!");
             case 1:
 
                 element = atual.getElement();
@@ -90,9 +90,9 @@ public class LinkedQueue<T> implements QueueADT<T> {
     }
 
     @Override
-    public T first() throws EmptyCollectionException {
+    public T first() throws recursos.exceptions.EmptyCollectionException {
         if (isEmpty()) {
-            throw new EmptyCollectionException("Queue Vazia");
+            throw new recursos.exceptions.EmptyCollectionException("Queue Vazia");
         }
         return this.head.getElement();
     }
