@@ -17,9 +17,8 @@ import recursos.interfaces.collections.UnorderedListADT;
  */
 public class Sala implements ISala {
 
-    private int id;
-    private int x;
-    private int y;
+    private int id, x, y;
+    private colecoes.ArrayUnorderedList<Formiga> formigas;
     private String descricao;
 
     public Sala(int id, int x, int y, String descricao) {
@@ -27,6 +26,7 @@ public class Sala implements ISala {
         this.x = x;
         this.y = y;
         this.descricao = descricao;
+        this.formigas = new colecoes.ArrayUnorderedList<>();
     }
 
     @Override
@@ -71,17 +71,17 @@ public class Sala implements ISala {
 
     @Override
     public void entraFormiga(IFormiga i) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.formigas.addToRear((Formiga) i);
     }
 
     @Override
     public IFormiga saiFormiga(int i) throws EmptyCollectionException, ElementNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.formigas.removeLast();
     }
 
     @Override
     public UnorderedListADT<IFormiga> listaFormigas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return (UnorderedListADT<IFormiga>) this.formigas.getIterator();
     }
 
     @Override

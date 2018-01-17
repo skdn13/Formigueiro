@@ -17,118 +17,88 @@ import recursos.interfaces.collections.UnorderedListADT;
  *
  * @author pmms8
  */
-public class Silo implements ISilo {
+public class Silo extends Sala implements ISilo {
 
-    private int id, x, y;
-    private String descricao;
-    private Comida comida;
-    private Formiga formiga;
+    private colecoes.ArrayUnorderedList<Formiga> formigas;
+    private colecoes.ArrayUnorderedList<Comida> comida;
 
     public Silo(int id, int x, int y, String descricao) {
-        this.id = id;
-        this.x = x;
-        this.y = y;
-        this.descricao = descricao;
+        super(id, x, y, descricao);
     }
 
     @Override
     public void guardaComida(IComida ic) {
-        this.comida = (Comida) ic;
+        this.comida.addToRear((Comida) ic);
     }
 
     @Override
-    public IComida retiraComida() throws EmptyCollectionException {
-        return this.comida;
+    public IComida retiraComida() throws recursos.exceptions.EmptyCollectionException {
+        return this.comida.removeLast();
     }
 
     @Override
     public Iterator<IComida> iteratorComida() {
-        return null;
+        return (Iterator<IComida>) this.comida.getIterator();
     }
 
     @Override
     public int getId() {
-        return this.id;
+        return super.getId();
     }
 
     @Override
     public void setId(int i) {
-        this.id = i;
+        super.setId(i);
     }
 
     @Override
     public int getX() {
-        return this.x;
+        return super.getX();
     }
 
     @Override
     public void setX(int i) {
-        this.x = i;
+        super.setX(i);
     }
 
     @Override
     public int getY() {
-        return this.y;
+        return super.getY();
     }
 
     @Override
     public void setY(int i) {
-        this.y = i;
+        super.setY(i);
     }
 
     @Override
     public String getDescricao() {
-        return this.descricao;
+        return super.getDescricao();
     }
 
     @Override
     public void setDescricao(String string) {
-        this.descricao = string;
+        super.setDescricao(string);
     }
 
     @Override
     public void entraFormiga(IFormiga i) {
-        this.formiga = (Formiga) i;
+        this.formigas.addToRear((Formiga) i);
     }
 
     @Override
     public IFormiga saiFormiga(int i) throws EmptyCollectionException, ElementNotFoundException {
-        return this.formiga;
+        return this.formigas.removeLast();
     }
 
     @Override
     public UnorderedListADT<IFormiga> listaFormigas() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 7;
-        hash = 89 * hash + this.id;
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Silo other = (Silo) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
+        return (UnorderedListADT<IFormiga>) this.formigas.getIterator();
     }
 
     @Override
     public String toString() {
-        return "Silo{" + "id=" + id + ", x=" + x + ", y=" + y + ", descricao=" + descricao + '}';
+        return "Silo{" + super.toString() + '}';
     }
 
 }

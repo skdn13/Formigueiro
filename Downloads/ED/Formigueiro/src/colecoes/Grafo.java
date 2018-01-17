@@ -27,8 +27,6 @@ public class Grafo<T> implements GraphADT<T> {
         this.numVertices = 0;
         this.adjMatrix = new boolean[DEFAULT_CAPACITY][DEFAULT_CAPACITY];
         this.vertices = (T[]) (new Object[DEFAULT_CAPACITY]);
-        //
-        //
     }
 
     @Override
@@ -103,7 +101,7 @@ public class Grafo<T> implements GraphADT<T> {
         while (!transversalQueue.isEmpty()) {
             try {
                 x = transversalQueue.dequeue();
-            } catch (EmptyCollectionException ex) {
+            } catch (recursos.exceptions.EmptyCollectionException ex) {
                 ex.printStackTrace();
             }
             resultList.addToRear(vertices[x.intValue()]);

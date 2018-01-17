@@ -27,7 +27,9 @@ public class Formigueiro implements IFormigueiro {
     private Formiga formiga;
     private Comida comida;
     private Processamento processamento;
+    private colecoes.ArrayUnorderedList<Sala> salas;
     private Silo silo;
+    private colecoes.Grafo<Sala> grafo;
     private int maxX;
     private int maxY;
 
@@ -49,22 +51,22 @@ public class Formigueiro implements IFormigueiro {
 
     @Override
     public Iterator<ISala> iterator() {
-        return new ArrayList<ISala>().iterator();
+        return (Iterator<ISala>) this.salas.getIterator();
     }
 
     @Override
     public Iterator<ISala> iteratorBFS(ISala isala) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return grafo.iteratorBFS(entrada);
     }
 
     @Override
     public Iterator<ISala> iteratorBFS() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return grafo.iteratorBFS(entrada);
     }
 
     @Override
     public void addSala(ISala isala) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.salas.addToFront((Sala) isala);
     }
 
     @Override
@@ -84,7 +86,7 @@ public class Formigueiro implements IFormigueiro {
 
     @Override
     public Iterator<IPair<ISala, ITunel>> ligacoesDe(ISala isala) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return new ArrayList<IPair<ISala, ITunel>>().iterator();
     }
 
     @Override
@@ -109,17 +111,17 @@ public class Formigueiro implements IFormigueiro {
 
     @Override
     public Iterator<ISala> iteratorShortestPath(int i, int i1) throws ElementNotFoundException {
-        return null;
+        return grafo.iteratorBFS(entrada);
     }
 
     @Override
     public Iterator<ISala> iteratorMoveFormigaShortestPath(int i, int i1) throws ElementNotFoundException {
-        return null;
+        return grafo.iteratorBFS(entrada);
     }
 
     @Override
     public Iterator<ISala> iteratorCarregaEMoveFormigaShortestPath(int i, int i1) throws ElementNotFoundException {
-        return null;
+        return grafo.iteratorBFS(entrada);
     }
 
     @Override

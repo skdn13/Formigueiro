@@ -17,10 +17,9 @@ public class Iniciar {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Sala sala = new Sala(1, 300, 400, "Sala 1");
-        Formigueiro formigueiro = new Formigueiro(sala, 500, 400);
-        FormigueiroViewer janela = new FormigueiroViewer(formigueiro);
-        //
+        //Sala sala = new Sala(1, "Sala 1");
+      //  Formigueiro formigueiro = new Formigueiro(sala, 900, 500);
+      //  FormigueiroViewer janela = new FormigueiroViewer(formigueiro);
     }
 
 }

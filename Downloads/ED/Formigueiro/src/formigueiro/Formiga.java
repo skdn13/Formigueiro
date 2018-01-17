@@ -17,6 +17,7 @@ import recursos.interfaces.IFormiga;
  */
 public class Formiga implements IFormiga {
 
+    private colecoes.ArrayUnorderedList<Comida> comida;
     private int capacidadeCarga;
     private int id;
     private int carga;
@@ -49,17 +50,17 @@ public class Formiga implements IFormiga {
 
     @Override
     public void addComida(IComida ic) throws FormigaCheiaException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.comida.addToRear((Comida) ic);
     }
 
     @Override
     public IComida removeComida(int i) throws EmptyCollectionException, ElementNotFoundException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.comida.removeLast();
     }
 
     @Override
     public IComida removeComida() throws EmptyCollectionException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this.comida.removeLast();
     }
 
     @Override
