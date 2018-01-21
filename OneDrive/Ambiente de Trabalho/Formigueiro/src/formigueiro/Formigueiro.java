@@ -8,7 +8,10 @@ package formigueiro;
 import colecoes.ArrayUnorderedList;
 import colecoes.Network;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import recursos.exceptions.ElementNotFoundException;
+import recursos.exceptions.FormigaCheiaException;
 import recursos.interfaces.IComida;
 import recursos.interfaces.IFormiga;
 import recursos.interfaces.IFormigueiro;
@@ -232,27 +235,109 @@ public class Formigueiro implements IFormigueiro {
 
     @Override
     public Iterator<ISala> iteratorCarregaEMoveFormigaShortestPath(int idFormiga, int i1) throws ElementNotFoundException {
-        int destino = i1 - 1;
         if (idFormiga < 1) {
             throw new ElementNotFoundException("A formiga não existe");
         } else if (i1 < 1) {
             throw new ElementNotFoundException("A sala de destino não existe");
+        } else if (this.getSala(i1) instanceof Processamento) {
+            return this.moveFormigaProcessamento(idFormiga, i1);
+        } else if (this.getSala(i1) instanceof Silo) {
+            return this.moveFormigaSilo(idFormiga, i1);
         } else {
-            Formiga formiga = (Formiga) getFormiga(idFormiga);
-            Sala origem = (Sala) this.getSalaFormiga(idFormiga);
-            if (origem instanceof Processamento || origem instanceof Silo) {
-                Processamento processamento = (Processamento) origem;
-                Iterator<IComida> it = processamento.iteratorComida();
-                while (it.hasNext()) {
-                    Comida next = (Comida) it.next();
-                    
-                }
-            }
-            origem.saiFormiga(idFormiga);
-            Sala salaDestino = (Sala) this.getSala(i1);
-            salaDestino.entraFormiga(formiga);
-            return this.network.iteratorShortestPath(origem.getId() - 1, destino);
+            return this.moveFormigaSala(idFormiga, i1);
         }
+    }
+
+    public Iterator<ISala> recalcularRota(Sala origem, int salaDestino, Iterator<ISala> iterador, Comida comida) {
+        Iterator<ISala> novaRota = iterador;
+        Tunel tunel = (Tunel) this.network.getElement(origem.getId() - 1, origem.getId());
+        while (comida.getTamanho() > tunel.getRadious()) {
+            novaRota = this.network.iteratorShortestPath(origem.getId() - 1, salaDestino - 1);
+        }
+        return novaRota;
+    }
+
+    public Iterator<ISala> moveFormigaProcessamento(int idFormiga, int idSalaDestino) throws ElementNotFoundException {
+        Silo origem = (Silo) this.getSalaFormiga(idFormiga);
+        Iterator<ISala> iteradorFinal = this.network.iteratorShortestPath(origem.getId() - 1, idSalaDestino - 1);
+        Formiga formiga = (Formiga) getFormiga(idFormiga);
+        int capacidadeAtual = formiga.getCapacidadeCarga();
+        Processamento salaDestino = (Processamento) this.getSala(idSalaDestino);
+        Iterator<IComida> it = origem.iteratorComida();
+        while (it.hasNext() && capacidadeAtual > 0) {
+            Comida comida = (Comida) it.next();
+            //this.recalcularRota(origem, idSalaDestino, iteradorFinal, comida);
+            try {
+                formiga.addComida(comida);
+                origem.retiraComida();
+                salaDestino.acrescentaComida(comida);
+                formiga.setCarga(capacidadeAtual - comida.getTamanho());
+                capacidadeAtual -= comida.getTamanho();
+            } catch (FormigaCheiaException ex) {
+                if (formiga.getCarga() == formiga.getCapacidadeCarga()) {
+                    origem.retiraComida();
+                    salaDestino.acrescentaComida(comida);
+                    formiga.setCarga(capacidadeAtual - comida.getTamanho());
+                }
+                ex.printStackTrace();
+                break;
+            }
+        }
+        origem.saiFormiga(idFormiga);
+        salaDestino.entraFormiga(formiga);
+        return iteradorFinal;
+    }
+
+    public Iterator<ISala> moveFormigaSala(int idFormiga, int idSalaDestino) throws ElementNotFoundException {
+        Silo origem = (Silo) this.getSalaFormiga(idFormiga);
+        Iterator<ISala> iteradorFinal = this.network.iteratorShortestPath(origem.getId() - 1, idSalaDestino - 1);
+        Formiga formiga = (Formiga) getFormiga(idFormiga);
+        int capacidadeAtual = 0;
+        Sala salaDestino = (Sala) this.getSala(idSalaDestino);
+        Iterator<IComida> it = origem.iteratorComida();
+        while (it.hasNext()) {
+            Comida comida = (Comida) it.next();
+            try {
+                formiga.addComida(comida);
+                origem.retiraComida();
+                formiga.setCarga(capacidadeAtual + comida.getTamanho());
+                capacidadeAtual += comida.getTamanho();
+            } catch (FormigaCheiaException ex) {
+                break;
+            }
+        }
+        origem.saiFormiga(idFormiga);
+        salaDestino.entraFormiga(formiga);
+        return iteradorFinal;
+    }
+
+    public Iterator<ISala> moveFormigaSilo(int idFormiga, int idSalaDestino) throws ElementNotFoundException {
+        Silo origem = (Silo) this.getSalaFormiga(idFormiga);
+        Iterator<ISala> iteradorFinal = this.network.iteratorShortestPath(origem.getId() - 1, idSalaDestino - 1);
+        Formiga formiga = (Formiga) getFormiga(idFormiga);
+        int capacidadeAtual = formiga.getCapacidadeCarga();
+        Silo salaDestino = (Silo) this.getSala(idSalaDestino);
+        Iterator<IComida> it = origem.iteratorComida();
+        while (it.hasNext() && capacidadeAtual > 0) {
+            Comida comida = (Comida) it.next();
+            try {
+                formiga.addComida(comida);
+                origem.retiraComida();
+                salaDestino.guardaComida(comida);
+                formiga.setCarga(capacidadeAtual - comida.getTamanho());
+                capacidadeAtual -= comida.getTamanho();
+            } catch (FormigaCheiaException ex) {
+                if (formiga.getCarga() == formiga.getCapacidadeCarga()) {
+                    origem.retiraComida();
+                    salaDestino.guardaComida(comida);
+                    formiga.setCarga(capacidadeAtual - comida.getTamanho());
+                }
+                break;
+            }
+        }
+        origem.saiFormiga(idFormiga);
+        salaDestino.entraFormiga(formiga);
+        return iteradorFinal;
     }
 
     @Override

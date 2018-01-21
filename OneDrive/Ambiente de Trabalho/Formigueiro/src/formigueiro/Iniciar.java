@@ -29,14 +29,11 @@ public class Iniciar {
         Processamento sala6 = (Processamento) formigueiro.criaProcessamento(6, "Sala 6", 400, 100);
 
         //Adicionar formigas e comida às salas
-        sala3.entraFormiga(formigueiro.criaFormiga(1, 10));
-        sala3.acrescentaComida(formigueiro.criaComida(3, 10));
-        sala3.acrescentaComida(formigueiro.criaComida(4, 10));
-        sala4.entraFormiga(formigueiro.criaFormiga(2, 10));
-        sala5.guardaComida(formigueiro.criaComida(1, 10));
-        sala5.guardaComida(formigueiro.criaComida(2, 10));
-        sala6.entraFormiga(formigueiro.criaFormiga(3, 10));
-        sala6.entraFormiga(formigueiro.criaFormiga(4, 10));
+        sala5.guardaComida(formigueiro.criaComida(1, 2));
+        sala5.guardaComida(formigueiro.criaComida(2, 2));
+        sala5.guardaComida(formigueiro.criaComida(3, 5));
+        sala5.entraFormiga(formigueiro.criaFormiga(1, 5));
+        sala5.entraFormiga(formigueiro.criaFormiga(2, 10));
 
         //Adicionar as salas ao formigueiro (Exceto a sala de entrada)
         formigueiro.addSala(sala2);
@@ -57,7 +54,7 @@ public class Iniciar {
         formigueiro.ligaSala(formigueiro.getSala(5), formigueiro.getSala(6), 2);
         //Desenhar o caminho na JFrame
         FormigueiroViewer janela = new FormigueiroViewer(formigueiro);
-        janela.pintaCaminho(formigueiro.iteratorCarregaEMoveFormigaShortestPath(1, 5));
+        janela.pintaCaminho(formigueiro.iteratorCarregaEMoveFormigaShortestPath(1, 3));
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package colecoes;
 
+import java.util.Iterator;
 import recursos.interfaces.collections.QueueADT;
 
 /**
@@ -14,6 +15,7 @@ import recursos.interfaces.collections.QueueADT;
  */
 public class LinkedStack<T> implements QueueADT<T> {
 
+    private StackIterator<?> iterator;
     private int numberOfElements;
     private LinearNode<T> head;
 
@@ -92,5 +94,9 @@ public class LinkedStack<T> implements QueueADT<T> {
             throw new recursos.exceptions.EmptyCollectionException("Stack Vazia");
         }
         return this.head.getElement();
+    }
+
+    public StackIterator<?> getIterator() {
+        return new StackIterator<>(this.head);
     }
 }

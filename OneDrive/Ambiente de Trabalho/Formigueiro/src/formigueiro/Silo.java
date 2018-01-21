@@ -6,7 +6,9 @@
 package formigueiro;
 
 import colecoes.ArrayUnorderedList;
+import colecoes.LinkedStack;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import recursos.exceptions.ElementNotFoundException;
 import recursos.exceptions.EmptyCollectionException;
 import recursos.interfaces.IComida;
@@ -21,22 +23,22 @@ import recursos.interfaces.collections.UnorderedListADT;
 public class Silo extends Sala implements ISilo {
 
     private UnorderedListADT<IFormiga> formigas;
-    private colecoes.ArrayUnorderedList<Comida> comida;
+    private LinkedStack<Comida> comida;
 
     public Silo(int id, int x, int y, String descricao) {
         super(id, x, y, descricao);
         formigas = new colecoes.ArrayUnorderedList<>();
-        comida = new colecoes.ArrayUnorderedList<>();
+        comida = new LinkedStack<>();
     }
 
     @Override
     public void guardaComida(IComida ic) {
-        this.comida.addToRear((Comida) ic);
+        this.comida.enqueue((Comida) ic);
     }
 
     @Override
     public IComida retiraComida() throws recursos.exceptions.EmptyCollectionException {
-        return this.comida.removeLast();
+        return this.comida.dequeue();
     }
 
     @Override

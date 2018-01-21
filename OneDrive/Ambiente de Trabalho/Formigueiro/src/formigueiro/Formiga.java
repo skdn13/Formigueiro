@@ -5,6 +5,7 @@
  */
 package formigueiro;
 
+import colecoes.ArrayUnorderedList;
 import recursos.exceptions.ElementNotFoundException;
 import recursos.exceptions.EmptyCollectionException;
 import recursos.exceptions.FormigaCheiaException;
@@ -22,9 +23,15 @@ public class Formiga implements IFormiga {
     private int id;
     private int carga;
 
+    public void setCarga(int carga) {
+        this.carga = carga;
+    }
+
     public Formiga(int id, int capacidadeCarga) {
         this.capacidadeCarga = capacidadeCarga;
         this.id = id;
+        this.carga = 0;
+        this.comida = new ArrayUnorderedList<>();
     }
 
     @Override
@@ -50,6 +57,9 @@ public class Formiga implements IFormiga {
     @Override
     public void addComida(IComida ic) throws FormigaCheiaException {
         this.comida.addToRear((Comida) ic);
+        if (this.carga == this.capacidadeCarga) {
+            throw new FormigaCheiaException();
+        }
     }
 
     @Override
