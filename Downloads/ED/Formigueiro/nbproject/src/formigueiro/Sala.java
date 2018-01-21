@@ -5,13 +5,10 @@
  */
 package formigueiro;
 
-import colecoes.ArrayIterator;
-import colecoes.ArrayUnorderedList;
 import recursos.exceptions.ElementNotFoundException;
 import recursos.exceptions.EmptyCollectionException;
 import recursos.interfaces.IFormiga;
 import recursos.interfaces.ISala;
-import recursos.interfaces.ITunel;
 import recursos.interfaces.collections.UnorderedListADT;
 
 /**
@@ -21,7 +18,7 @@ import recursos.interfaces.collections.UnorderedListADT;
 public class Sala implements ISala {
 
     private int id, x, y;
-    private UnorderedListADT<IFormiga> formigas;
+    private colecoes.ArrayUnorderedList<Formiga> formigas;
     private String descricao;
 
     public Sala(int id, int x, int y, String descricao) {
@@ -84,7 +81,7 @@ public class Sala implements ISala {
 
     @Override
     public UnorderedListADT<IFormiga> listaFormigas() {
-        return this.formigas;
+        return (UnorderedListADT<IFormiga>) this.formigas.getIterator();
     }
 
     @Override

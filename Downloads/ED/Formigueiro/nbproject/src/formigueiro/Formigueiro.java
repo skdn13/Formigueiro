@@ -5,12 +5,8 @@
  */
 package formigueiro;
 
-import colecoes.ArrayIterator;
-import colecoes.Network;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import recursos.exceptions.ElementNotFoundException;
 import recursos.interfaces.IComida;
 import recursos.interfaces.IFormiga;
@@ -20,7 +16,6 @@ import recursos.interfaces.IProcessamento;
 import recursos.interfaces.ISala;
 import recursos.interfaces.ISilo;
 import recursos.interfaces.ITunel;
-import recursos.interfaces.collections.NetworkADT;
 
 /**
  *
@@ -29,21 +24,17 @@ import recursos.interfaces.collections.NetworkADT;
 public class Formigueiro implements IFormigueiro {
 
     private Sala entrada;
+    private Formiga formiga;
+    private Comida comida;
     private Processamento processamento;
     private colecoes.ArrayUnorderedList<Sala> salas;
-    private colecoes.ArrayUnorderedList<Formiga> formigas;
     private Silo silo;
-    private colecoes.Graph<ISala> grafo;
-    private NetworkADT<ISala> network;
+    private colecoes.Grafo<Sala> grafo;
     private int maxX;
     private int maxY;
 
     public Formigueiro(Sala entrada, int maxX, int maxY) {
-        formigas = new colecoes.ArrayUnorderedList<>();
-        salas = new colecoes.ArrayUnorderedList<>();
-        this.network = new Network<>();
         this.entrada = entrada;
-        this.salas.addToRear(entrada);
         this.maxX = maxX;
         this.maxY = maxY;
     }
@@ -80,12 +71,7 @@ public class Formigueiro implements IFormigueiro {
 
     @Override
     public void ligaSala(ISala isala, ISala isala1, int i) {
-        Tunel tunel = new Tunel(100, i, 1);
-        try {
-            this.network.addEdge(isala, isala1, tunel);
-        } catch (ElementNotFoundException ex) {
-            ex.printStackTrace();
-        }
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -110,7 +96,7 @@ public class Formigueiro implements IFormigueiro {
 
     @Override
     public IFormiga getFormiga(int i) throws ElementNotFoundException {
-        return this.formigas.first();
+        return this.formiga;
     }
 
     @Override
@@ -120,7 +106,7 @@ public class Formigueiro implements IFormigueiro {
 
     @Override
     public boolean vizinhos(ISala isala, ISala isala1) {
-        return ((isala.getX() == isala1.getX()) || (isala.getY() == isala1.getY()));
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
@@ -140,38 +126,32 @@ public class Formigueiro implements IFormigueiro {
 
     @Override
     public int custoDoCaminho(Iterator<ISala> itrtr) {
-        int custo = 0;
-        while (itrtr.hasNext()) {
-            itrtr.next().getX();
-        }
-        return custo;
+        return 0;
     }
 
     @Override
     public IFormiga criaFormiga(int i, int i1) {
-        Formiga formiga = new Formiga(i1, i);
-        this.formigas.addToRear(formiga);
-        return formiga;
+        return this.formiga;
     }
 
     @Override
     public IComida criaComida(int i, int i1) {
-        return new Comida(i, i1);
+        return this.comida;
     }
 
     @Override
     public ISala criaSala(int i, String string, int i1, int i2) {
-        return new Sala(i, i1, i2, string);
+        return this.entrada;
     }
 
     @Override
     public ISilo criaSilo(int i, String string, int i1, int i2) {
-        return new Silo(i, i1, i2, string);
+        return this.silo;
     }
 
     @Override
     public IProcessamento criaProcessamento(int i, String string, int i1, int i2) {
-        return new Processamento(i, i1, i2, string);
+        return this.processamento;
     }
 
 }

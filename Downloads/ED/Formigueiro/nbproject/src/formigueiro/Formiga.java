@@ -22,9 +22,10 @@ public class Formiga implements IFormiga {
     private int id;
     private int carga;
 
-    public Formiga(int id, int capacidadeCarga) {
+    public Formiga(int capacidadeCarga, int id, int carga) {
         this.capacidadeCarga = capacidadeCarga;
         this.id = id;
+        this.carga = carga;
     }
 
     @Override
