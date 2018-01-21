@@ -57,7 +57,7 @@ public class Formiga implements IFormiga {
     @Override
     public void addComida(IComida ic) throws FormigaCheiaException {
         this.comida.addToRear((Comida) ic);
-        if (this.carga == this.capacidadeCarga) {
+        if (this.carga >= this.capacidadeCarga) {
             throw new FormigaCheiaException();
         }
     }

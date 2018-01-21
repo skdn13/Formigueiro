@@ -90,6 +90,9 @@ public class Formigueiro implements IFormigueiro {
         } catch (ElementNotFoundException ex) {
             ex.printStackTrace();
         }
+    }
+
+    public void printNetwork() {
         System.out.println(this.network.toString());
     }
 
@@ -261,28 +264,28 @@ public class Formigueiro implements IFormigueiro {
         Silo origem = (Silo) this.getSalaFormiga(idFormiga);
         Iterator<ISala> iteradorFinal = this.network.iteratorShortestPath(origem.getId() - 1, idSalaDestino - 1);
         Formiga formiga = (Formiga) getFormiga(idFormiga);
-        int capacidadeAtual = formiga.getCapacidadeCarga();
+        int capacidadeAtual = 0;
         Processamento salaDestino = (Processamento) this.getSala(idSalaDestino);
         Iterator<IComida> it = origem.iteratorComida();
-        while (it.hasNext() && capacidadeAtual > 0) {
+        while (it.hasNext() && formiga.getCapacidadeCarga() != 0) {
             Comida comida = (Comida) it.next();
             //this.recalcularRota(origem, idSalaDestino, iteradorFinal, comida);
             try {
                 formiga.addComida(comida);
                 origem.retiraComida();
                 salaDestino.acrescentaComida(comida);
-                formiga.setCarga(capacidadeAtual - comida.getTamanho());
-                capacidadeAtual -= comida.getTamanho();
+                capacidadeAtual++;
+                formiga.setCarga(capacidadeAtual);
             } catch (FormigaCheiaException ex) {
-                if (formiga.getCarga() == formiga.getCapacidadeCarga()) {
-                    origem.retiraComida();
-                    salaDestino.acrescentaComida(comida);
-                    formiga.setCarga(capacidadeAtual - comida.getTamanho());
-                }
+                formiga.setCarga(formiga.getCapacidadeCarga() - capacidadeAtual);
                 ex.printStackTrace();
                 break;
             }
+            if (!it.hasNext()) {
+                formiga.setCarga(formiga.getCapacidadeCarga() - capacidadeAtual);
+            }
         }
+
         origem.saiFormiga(idFormiga);
         salaDestino.entraFormiga(formiga);
         return iteradorFinal;
@@ -295,14 +298,16 @@ public class Formigueiro implements IFormigueiro {
         int capacidadeAtual = 0;
         Sala salaDestino = (Sala) this.getSala(idSalaDestino);
         Iterator<IComida> it = origem.iteratorComida();
-        while (it.hasNext()) {
+        while (it.hasNext() && formiga.getCapacidadeCarga() != 0) {
             Comida comida = (Comida) it.next();
+            //this.recalcularRota(origem, idSalaDestino, iteradorFinal, comida);
             try {
                 formiga.addComida(comida);
                 origem.retiraComida();
-                formiga.setCarga(capacidadeAtual + comida.getTamanho());
-                capacidadeAtual += comida.getTamanho();
+                capacidadeAtual++;
+                formiga.setCarga(capacidadeAtual);
             } catch (FormigaCheiaException ex) {
+                ex.printStackTrace();
                 break;
             }
         }
@@ -315,24 +320,25 @@ public class Formigueiro implements IFormigueiro {
         Silo origem = (Silo) this.getSalaFormiga(idFormiga);
         Iterator<ISala> iteradorFinal = this.network.iteratorShortestPath(origem.getId() - 1, idSalaDestino - 1);
         Formiga formiga = (Formiga) getFormiga(idFormiga);
-        int capacidadeAtual = formiga.getCapacidadeCarga();
+        int capacidadeAtual = 0;
         Silo salaDestino = (Silo) this.getSala(idSalaDestino);
         Iterator<IComida> it = origem.iteratorComida();
-        while (it.hasNext() && capacidadeAtual > 0) {
+        while (it.hasNext() && formiga.getCapacidadeCarga() != 0) {
             Comida comida = (Comida) it.next();
+            //this.recalcularRota(origem, idSalaDestino, iteradorFinal, comida);
             try {
                 formiga.addComida(comida);
                 origem.retiraComida();
                 salaDestino.guardaComida(comida);
-                formiga.setCarga(capacidadeAtual - comida.getTamanho());
-                capacidadeAtual -= comida.getTamanho();
+                capacidadeAtual++;
+                formiga.setCarga(capacidadeAtual);
             } catch (FormigaCheiaException ex) {
-                if (formiga.getCarga() == formiga.getCapacidadeCarga()) {
-                    origem.retiraComida();
-                    salaDestino.guardaComida(comida);
-                    formiga.setCarga(capacidadeAtual - comida.getTamanho());
-                }
+                formiga.setCarga(formiga.getCapacidadeCarga() - capacidadeAtual);
+                ex.printStackTrace();
                 break;
+            }
+            if (!it.hasNext()) {
+                formiga.setCarga(formiga.getCapacidadeCarga() - capacidadeAtual);
             }
         }
         origem.saiFormiga(idFormiga);
