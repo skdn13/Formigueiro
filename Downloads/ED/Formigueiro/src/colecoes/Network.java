@@ -3,6 +3,7 @@ package colecoes;
 import formigueiro.Tunel;
 import java.util.*;
 import recursos.exceptions.ElementNotFoundException;
+import recursos.interfaces.IFormiga;
 import recursos.interfaces.ITunel;
 import recursos.interfaces.collections.NetworkADT;
 
@@ -303,6 +304,43 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
              */
             for (int i = 0; i < numVertices; i++) {
                 if ((adjMatrix[x.intValue()][i].getDistance() < Double.POSITIVE_INFINITY)
+                        && !visited[i]) {
+                    traversalQueue.enqueue(new Integer(i));
+                    visited[i] = true;
+                }
+            }
+        }
+        return resultList.iterator();
+    }
+    
+    
+     public Iterator<T> iteratorBFS2(int startIndex, IFormiga formiga) {
+        Integer x;
+        LinkedQueue<Integer> traversalQueue = new LinkedQueue<Integer>();
+        ArrayUnorderedList<T> resultList = new ArrayUnorderedList<T>();
+
+        if (!indexIsValid(startIndex)) {
+            return resultList.iterator();
+        }
+
+        boolean[] visited = new boolean[numVertices];
+        for (int i = 0; i < numVertices; i++) {
+            visited[i] = false;
+        }
+
+        traversalQueue.enqueue(new Integer(startIndex));
+        visited[startIndex] = true;
+
+        while (!traversalQueue.isEmpty()) {
+            x = traversalQueue.dequeue();
+            resultList.addToRear(vertices[x.intValue()]);
+
+            /**
+             * Find all vertices adjacent to x that have not been visited and
+             * queue them up
+             */
+            for (int i = 0; i < numVertices; i++) {
+                if ((adjMatrix[x.intValue()][i].getDistance() < Double.POSITIVE_INFINITY && formiga.getCarga() <= adjMatrix[x.intValue()][i].getRadious())
                         && !visited[i]) {
                     traversalQueue.enqueue(new Integer(i));
                     visited[i] = true;

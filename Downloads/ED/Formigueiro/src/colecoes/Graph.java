@@ -1,6 +1,7 @@
 package colecoes;
 
 import java.util.*;
+import recursos.interfaces.IFormiga;
 import recursos.interfaces.collections.GraphADT;
 
 public class Graph<T> implements GraphADT<T>

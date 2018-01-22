@@ -35,6 +35,7 @@ public class Formigueiro implements IFormigueiro {
     private Silo silo;
     private colecoes.Graph<ISala> grafo;
     private NetworkADT<ISala> network;
+    private Network<ISala> network2;
     private int maxX;
     private int maxY;
 
@@ -127,7 +128,7 @@ public class Formigueiro implements IFormigueiro {
     public Iterator<ISala> iteratorShortestPath(int i, int i1) throws ElementNotFoundException {
  //devolve o caminho mais curto mas acho que tem de ver as exepçoes
         
-        return grafo.iteratorBFS(entrada);
+        return network2.iteratorBFS2(i, getFormiga(i1));
     }
 
     @Override
@@ -135,14 +136,14 @@ public class Formigueiro implements IFormigueiro {
         
 //formiga com carga, o raio do tunel tem de ser igual ou menor a carga atual
         
-        return grafo.iteratorBFS(entrada);
+        return network2.iteratorBFS2(i, getFormiga(i1)); //getformiga vai buscar com este id?
     }
 
     @Override
     public Iterator<ISala> iteratorCarregaEMoveFormigaShortestPath(int i, int i1) throws ElementNotFoundException {
     //formiga é carregada com o maximo da sua capacidade e logo a seguir procura a rota mais curta
     //formiga com carga, o raio do tunel tem de ser igual ou menor a carga atual
-        return grafo.iteratorBFS(entrada);
+        return network2.iteratorBFS2(i, getFormiga(i1));
     }
 
     @Override
