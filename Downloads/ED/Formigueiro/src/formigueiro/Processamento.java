@@ -21,7 +21,7 @@ import recursos.interfaces.collections.UnorderedListADT;
 public class Processamento extends Sala implements IProcessamento {
 
 //    private colecoes.ArrayUnorderedList<Formiga> formigas;
-    private colecoes.LinkedQueue<Formiga> formigas;
+   private colecoes.LinkedQueue<Formiga> formigas;
     private colecoes.LinkedQueue<Comida> comida;
   //  private colecoes.ArrayUnorderedList<Comida> comida;
 
@@ -38,7 +38,7 @@ public class Processamento extends Sala implements IProcessamento {
 
     @Override
     public IComida getProximaComida() throws EmptyCollectionException, ProcessedException {
-        int f, d;
+        int f;
          if (comida.isEmpty()) {
             throw new recursos.exceptions.EmptyCollectionException("Empty List");
             

@@ -78,7 +78,7 @@ public class Sala implements ISala {
     }
 
     @Override
-    public IFormiga saiFormiga(int i) throws EmptyCollectionException, ElementNotFoundException {
+    public IFormiga saiFormiga(int id) throws EmptyCollectionException, ElementNotFoundException {
         return this.formigas.removeLast();
     }
 
