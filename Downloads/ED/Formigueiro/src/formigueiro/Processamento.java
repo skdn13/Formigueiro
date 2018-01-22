@@ -20,18 +20,20 @@ import recursos.interfaces.collections.UnorderedListADT;
  */
 public class Processamento extends Sala implements IProcessamento {
 
-    private colecoes.ArrayUnorderedList<Formiga> formigas;
-    private colecoes.ArrayUnorderedList<Comida> comida;
+//    private colecoes.ArrayUnorderedList<Formiga> formigas;
+    private colecoes.LinkedQueue<Formiga> formigas;
+    private colecoes.LinkedQueue<Comida> comida;
+  //  private colecoes.ArrayUnorderedList<Comida> comida;
 
     public Processamento(int id, int x, int y, String descricao) {
         super(id, x, y, descricao);
-        formigas = new colecoes.ArrayUnorderedList<>();
-        comida = new colecoes.ArrayUnorderedList<>();
+        formigas = new colecoes.LinkedQueue<>();
+        comida = new colecoes.LinkedQueue<>();
     }
          
     @Override
     public void acrescentaComida(IComida ic) {
-        this.comida.addToRear((Comida) ic);
+        this.comida.enqueue((Comida) ic);
     }
 
     @Override
@@ -40,24 +42,24 @@ public class Processamento extends Sala implements IProcessamento {
          if (comida.isEmpty()) {
             throw new recursos.exceptions.EmptyCollectionException("Empty List");
             
-         }else if(this.comida.last().getTamanho()==1){
+         }else if(this.comida.first().getTamanho()==1){
             
-            return this.comida.removeLast(); //isto manda a ultima comida que é retirada?
+            return this.comida.dequeue(); //isto manda a ultima comida que é retirada?
        
        }else{
-                f = this.comida.last().getTamanho();
+                f = this.comida.first().getTamanho();
                for (int i = 0; i < f; i++) {
-                   Comida cni= new Comida(this.comida.last().getId()+i, 1);
+                   Comida cni= new Comida(this.comida.first().getId()+i, 1);
                    acrescentaComida(cni);
             }
-               throw new recursos.exceptions.ProcessedException(this.comida.removeLast());
+               throw new recursos.exceptions.ProcessedException(this.comida.dequeue());
         }
             
     }
     
     @Override
     public Iterator<IComida> iteratorComida() {
-        return (Iterator<IComida>) this.comida.getIterator();
+        return (Iterator<IComida>) this.comida;
     }
 
     @Override
@@ -102,17 +104,17 @@ public class Processamento extends Sala implements IProcessamento {
 
     @Override
     public void entraFormiga(IFormiga i) {
-        this.formigas.addToRear((Formiga) i);
+        this.formigas.enqueue((Formiga) i);
     }
 
     @Override
     public IFormiga saiFormiga(int i) throws EmptyCollectionException, ElementNotFoundException {
-        return this.formigas.removeLast();
+        return this.formigas.dequeue();
     }
 
     @Override
     public UnorderedListADT<IFormiga> listaFormigas() {
-        return (UnorderedListADT<IFormiga>) this.formigas.getIterator();
+        return (UnorderedListADT<IFormiga>) this.formigas;
     }
 
 }

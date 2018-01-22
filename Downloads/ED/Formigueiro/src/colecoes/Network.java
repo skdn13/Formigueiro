@@ -314,7 +314,7 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
     }
     
     
-     public Iterator<T> iteratorBFS2(int startIndex, IFormiga formiga) {
+     public Iterator<T> iteratorBFS2(IFormiga formiga, int startIndex) {
         Integer x;
         LinkedQueue<Integer> traversalQueue = new LinkedQueue<Integer>();
         ArrayUnorderedList<T> resultList = new ArrayUnorderedList<T>();
