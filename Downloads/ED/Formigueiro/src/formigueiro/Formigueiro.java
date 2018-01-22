@@ -125,16 +125,23 @@ public class Formigueiro implements IFormigueiro {
 
     @Override
     public Iterator<ISala> iteratorShortestPath(int i, int i1) throws ElementNotFoundException {
+ //devolve o caminho mais curto mas acho que tem de ver as exepçoes
+        
         return grafo.iteratorBFS(entrada);
     }
 
     @Override
     public Iterator<ISala> iteratorMoveFormigaShortestPath(int i, int i1) throws ElementNotFoundException {
+        
+//formiga com carga, o raio do tunel tem de ser igual ou menor a carga atual
+        
         return grafo.iteratorBFS(entrada);
     }
 
     @Override
     public Iterator<ISala> iteratorCarregaEMoveFormigaShortestPath(int i, int i1) throws ElementNotFoundException {
+    //formiga é carregada com o maximo da sua capacidade e logo a seguir procura a rota mais curta
+    //formiga com carga, o raio do tunel tem de ser igual ou menor a carga atual
         return grafo.iteratorBFS(entrada);
     }
 

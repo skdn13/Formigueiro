@@ -20,7 +20,7 @@ public class Comida implements IComida {
         this.id = id;
         this.tamanho = tamanho;
     }
-
+     
     @Override
     public int getId() {
         return this.id;

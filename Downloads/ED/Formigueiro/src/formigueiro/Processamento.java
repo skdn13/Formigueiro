@@ -28,7 +28,7 @@ public class Processamento extends Sala implements IProcessamento {
         formigas = new colecoes.ArrayUnorderedList<>();
         comida = new colecoes.ArrayUnorderedList<>();
     }
-
+         
     @Override
     public void acrescentaComida(IComida ic) {
         this.comida.addToRear((Comida) ic);
@@ -36,9 +36,26 @@ public class Processamento extends Sala implements IProcessamento {
 
     @Override
     public IComida getProximaComida() throws EmptyCollectionException, ProcessedException {
-        return this.comida.last();
+        int f, d;
+         if (comida.isEmpty()) {
+            throw new recursos.exceptions.EmptyCollectionException("Empty List");
+            
+         }else if(this.comida.last().getTamanho()==1){
+            
+            return this.comida.removeLast(); //isto manda a ultima comida que é retirada?
+       
+       }else{
+                f = this.comida.last().getTamanho();
+               for (int i = 0; i < f; i++) {
+                   Comida cni= new Comida(this.comida.last().getId()+i, 1);
+                   acrescentaComida(cni);
+            }
+               throw new recursos.exceptions.ProcessedException(this.comida.removeLast());
+        }
+            
     }
 
+    
     @Override
     public Iterator<IComida> iteratorComida() {
         return (Iterator<IComida>) this.comida.getIterator();
