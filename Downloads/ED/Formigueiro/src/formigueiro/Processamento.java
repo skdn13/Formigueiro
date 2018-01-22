@@ -54,7 +54,6 @@ public class Processamento extends Sala implements IProcessamento {
         }
             
     }
-
     
     @Override
     public Iterator<IComida> iteratorComida() {
