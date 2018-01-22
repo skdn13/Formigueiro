@@ -5,6 +5,7 @@
  */
 package formigueiro;
 
+import colecoes.LinkedQueue;
 import java.util.Iterator;
 import recursos.exceptions.ElementNotFoundException;
 import recursos.exceptions.EmptyCollectionException;
@@ -21,22 +22,44 @@ import recursos.interfaces.collections.UnorderedListADT;
 public class Processamento extends Sala implements IProcessamento {
 
     private UnorderedListADT<IFormiga> formigas;
-    private colecoes.ArrayUnorderedList<Comida> comida;
+    private LinkedQueue<Comida> comida;
 
     public Processamento(int id, int x, int y, String descricao) {
         super(id, x, y, descricao);
         formigas = new colecoes.ArrayUnorderedList<>();
-        comida = new colecoes.ArrayUnorderedList<>();
+        comida = new colecoes.LinkedQueue<>();
     }
 
     @Override
     public void acrescentaComida(IComida ic) {
-        this.comida.addToRear((Comida) ic);
+        this.comida.enqueue((Comida) ic);
     }
 
     @Override
     public IComida getProximaComida() throws EmptyCollectionException, ProcessedException {
-        return this.comida.last();
+        int tamanho = this.comida.first().getTamanho();
+        if (this.comida.isEmpty()) {
+            throw new EmptyCollectionException("Queue vazia!");
+        } else {
+            if (tamanho == 1) {
+                return this.retiraComida();
+            } else {
+                this.retiraComida();
+                Comida c = new Comida(this.comida.first().getId() + 1, 1);
+                for (int i = 0; i < tamanho; i++) {
+                    this.acrescentaComida(c);
+                }
+                throw new ProcessedException(c);
+            }
+        }
+    }
+
+    public IComida retiraComida() throws recursos.exceptions.EmptyCollectionException {
+        if (this.comida.isEmpty()) {
+            throw new EmptyCollectionException("Sem comidas em queue!");
+        } else {
+            return this.comida.dequeue();
+        }
     }
 
     @Override

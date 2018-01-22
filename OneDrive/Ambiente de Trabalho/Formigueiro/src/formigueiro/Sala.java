@@ -5,14 +5,11 @@
  */
 package formigueiro;
 
-import colecoes.ArrayIterator;
-import colecoes.ArrayUnorderedList;
 import java.util.Iterator;
 import recursos.exceptions.ElementNotFoundException;
 import recursos.exceptions.EmptyCollectionException;
 import recursos.interfaces.IFormiga;
 import recursos.interfaces.ISala;
-import recursos.interfaces.ITunel;
 import recursos.interfaces.collections.UnorderedListADT;
 
 /**

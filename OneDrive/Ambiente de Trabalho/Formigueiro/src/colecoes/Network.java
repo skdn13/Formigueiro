@@ -682,5 +682,8 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         }
         return 0;
     }
+    public int numberOfVertices(){
+        return this.numVertices;
+    }
 
 }

@@ -5,10 +5,8 @@
  */
 package formigueiro;
 
-import colecoes.ArrayUnorderedList;
 import colecoes.LinkedStack;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import recursos.exceptions.ElementNotFoundException;
 import recursos.exceptions.EmptyCollectionException;
 import recursos.interfaces.IComida;

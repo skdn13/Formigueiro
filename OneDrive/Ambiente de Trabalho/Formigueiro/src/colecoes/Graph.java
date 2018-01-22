@@ -22,13 +22,15 @@ public class Graph<T> implements GraphADT<T>
 
    /******************************************************************
      Returns a string representation of the adjacency matrix. 
+     * @return 
    ******************************************************************/
+   @Override
    public String toString()
    {
       if (numVertices == 0)
          return "Graph is empty";
 
-      String result = new String("");
+      String result = "";
 
       result += "Adjacency Matrix\n";
       result += "----------------\n";
@@ -71,6 +73,8 @@ public class Graph<T> implements GraphADT<T>
 
    /******************************************************************
      Inserts an edge between two vertices of the graph.
+     * @param index1
+     * @param index2
    ******************************************************************/
    public void addEdge (int index1, int index2)
    {
@@ -83,6 +87,8 @@ public class Graph<T> implements GraphADT<T>
 
    /******************************************************************
      Removes an edge between two vertices of the graph.
+     * @param index1
+     * @param index2
    ******************************************************************/
    public void removeEdge (int index1, int index2)
    {
@@ -95,7 +101,10 @@ public class Graph<T> implements GraphADT<T>
 
    /******************************************************************
      Inserts an edge between two vertices of the graph.
+     * @param vertex1
+     * @param vertex2
    ******************************************************************/
+   @Override
    public void addEdge (T vertex1, T vertex2)
    {
       addEdge (getIndex(vertex1), getIndex(vertex2));
@@ -103,7 +112,10 @@ public class Graph<T> implements GraphADT<T>
 
    /******************************************************************
      Removes an edge between two vertices of the graph.
+     * @param vertex1
+     * @param vertex2
    ******************************************************************/
+   @Override
    public void removeEdge (T vertex1, T vertex2)
    {
       removeEdge (getIndex(vertex1), getIndex(vertex2));
@@ -130,7 +142,9 @@ public class Graph<T> implements GraphADT<T>
    /******************************************************************
      Adds a vertex to the graph, expanding the capacity of the graph
      if necessary.  It also associates an object with the vertex.
+     * @param vertex
    ******************************************************************/
+   @Override
    public void addVertex (T vertex)
    {
       if (numVertices == vertices.length)
@@ -148,6 +162,7 @@ public class Graph<T> implements GraphADT<T>
    /******************************************************************
      Removes a vertex at the given index from the graph.  Note that 
      this may affect the index values of other vertices.
+     * @param index
    ******************************************************************/
    public void removeVertex (int index)
    {
@@ -170,7 +185,9 @@ public class Graph<T> implements GraphADT<T>
 
    /******************************************************************
      Removes a single vertex with the given value from the graph.  
+     * @param vertex
    ******************************************************************/
+   @Override
    public void removeVertex (T vertex)
    {
       for (int i = 0; i < numVertices; i++)
@@ -186,13 +203,15 @@ public class Graph<T> implements GraphADT<T>
    /******************************************************************
      Returns an iterator that performs a depth first search 
      traversal starting at the given index.
+     * @param startIndex
+     * @return 
    ******************************************************************/
    public Iterator<T> iteratorDFS(int startIndex)
    {
       Integer x;
       boolean found;
-      LinkedStack<Integer> traversalStack = new LinkedStack<Integer>();
-      ArrayUnorderedList<T> resultList = new ArrayUnorderedList<T>();
+      LinkedStack<Integer> traversalStack = new LinkedStack<>();
+      ArrayUnorderedList<T> resultList = new ArrayUnorderedList<>();
       boolean[] visited = new boolean[numVertices];
 
       if (!indexIsValid(startIndex))
@@ -201,7 +220,7 @@ public class Graph<T> implements GraphADT<T>
       for (int i = 0; i < numVertices; i++)
          visited[i] = false;
       
-      traversalStack.enqueue(new Integer(startIndex));
+      traversalStack.enqueue(startIndex);
       resultList.addToRear(vertices[startIndex]);
       visited[startIndex] = true;
       
@@ -214,9 +233,9 @@ public class Graph<T> implements GraphADT<T>
              and push it on the stack */
          for (int i = 0; (i < numVertices) && !found; i++)
          {
-            if (adjMatrix[x.intValue()][i] && !visited[i])
+            if (adjMatrix[x][i] && !visited[i])
             {
-               traversalStack.enqueue(new Integer(i));
+               traversalStack.enqueue(i);
                resultList.addToRear(vertices[i]);
                visited[i] = true;
                found = true;
@@ -231,7 +250,10 @@ public class Graph<T> implements GraphADT<T>
    /******************************************************************
      Returns an iterator that performs a depth first search 
      traversal starting at the given vertex.
+     * @param startVertex
+     * @return 
    ******************************************************************/
+   @Override
    public Iterator<T> iteratorDFS(T startVertex)
    {      
       return iteratorDFS(getIndex(startVertex));
@@ -240,12 +262,14 @@ public class Graph<T> implements GraphADT<T>
    /******************************************************************
      Returns an iterator that performs a breadth first search 
      traversal starting at the given index.
+     * @param startIndex
+     * @return 
    ******************************************************************/
    public Iterator<T> iteratorBFS(int startIndex)
    {
       Integer x;
-      LinkedQueue<Integer> traversalQueue = new LinkedQueue<Integer>();
-      ArrayUnorderedList<T> resultList = new ArrayUnorderedList<T>();
+      LinkedQueue<Integer> traversalQueue = new LinkedQueue<>();
+      ArrayUnorderedList<T> resultList = new ArrayUnorderedList<>();
 
       if (!indexIsValid(startIndex))
          return resultList.iterator();
@@ -254,21 +278,21 @@ public class Graph<T> implements GraphADT<T>
       for (int i = 0; i < numVertices; i++)
          visited[i] = false;
       
-      traversalQueue.enqueue(new Integer(startIndex));
+      traversalQueue.enqueue(startIndex);
       visited[startIndex] = true;
       
       while (!traversalQueue.isEmpty())
       {
          x = traversalQueue.dequeue();
-         resultList.addToRear(vertices[x.intValue()]);
+         resultList.addToRear(vertices[x]);
 
          /** Find all vertices adjacent to x that have not been visited
              and queue them up */
          for (int i = 0; i < numVertices; i++)
          {
-            if (adjMatrix[x.intValue()][i] && !visited[i])
+            if (adjMatrix[x][i] && !visited[i])
             {
-               traversalQueue.enqueue(new Integer(i));
+               traversalQueue.enqueue(i);
                visited[i] = true;
             }
          }
@@ -279,7 +303,10 @@ public class Graph<T> implements GraphADT<T>
    /******************************************************************
      Returns an iterator that performs a breadth first search 
      traversal starting at the given vertex.
+     * @param startVertex
+     * @return 
    ******************************************************************/
+   @Override
    public Iterator<T> iteratorBFS(T startVertex)
    {      
       return iteratorBFS(getIndex(startVertex));
@@ -288,6 +315,9 @@ public class Graph<T> implements GraphADT<T>
    /******************************************************************
      Returns an iterator that contains the indices of the vertices 
      that are in the shortest path between the two given vertices.
+     * @param startIndex
+     * @param targetIndex
+     * @return 
    ******************************************************************/
    protected Iterator<Integer> iteratorShortestPathIndices
                               (int startIndex, int targetIndex)
@@ -295,9 +325,9 @@ public class Graph<T> implements GraphADT<T>
       int index = startIndex;
       int[] pathLength = new int[numVertices];
       int[] predecessor = new int[numVertices];
-      LinkedQueue<Integer> traversalQueue = new LinkedQueue<Integer>();
+      LinkedQueue<Integer> traversalQueue = new LinkedQueue<>();
       ArrayUnorderedList<Integer> resultList = 
-                                  new ArrayUnorderedList<Integer>();
+                                  new ArrayUnorderedList<>();
 
       if (!indexIsValid(startIndex) || !indexIsValid(targetIndex) || 
                                        (startIndex == targetIndex))
@@ -307,14 +337,14 @@ public class Graph<T> implements GraphADT<T>
       for (int i = 0; i < numVertices; i++)
          visited[i] = false;
       
-      traversalQueue.enqueue(new Integer(startIndex));
+      traversalQueue.enqueue(startIndex);
       visited[startIndex] = true;
       pathLength[startIndex] = 0;
       predecessor[startIndex] = -1;
 
       while (!traversalQueue.isEmpty() && (index != targetIndex))
       {
-         index = (traversalQueue.dequeue()).intValue();
+         index = (traversalQueue.dequeue());
 
          /** Update the pathLength for each unvisited vertex adjacent 
              to the vertex at the current index. */
@@ -324,7 +354,7 @@ public class Graph<T> implements GraphADT<T>
             {
                pathLength[i] = pathLength[index] + 1;
                predecessor[i] = index;
-               traversalQueue.enqueue(new Integer(i));
+               traversalQueue.enqueue(i);
                visited[i] = true;
             }
          }
@@ -332,17 +362,17 @@ public class Graph<T> implements GraphADT<T>
       if (index != targetIndex)  // no path must have been found
          return resultList.iterator();
 
-      LinkedStack<Integer> stack = new LinkedStack<Integer>();
+      LinkedStack<Integer> stack = new LinkedStack<>();
       index = targetIndex;
-      stack.enqueue(new Integer(index));
+      stack.enqueue(index);
       do
       {
          index = predecessor[index];
-         stack.enqueue(new Integer(index));
+         stack.enqueue(index);
       } while (index != startIndex);
       
       while (!stack.isEmpty())
-         resultList.addToRear(((Integer)stack.dequeue()));
+         resultList.addToRear((stack.dequeue()));
 
       return resultList.iterator();
    }
@@ -350,25 +380,32 @@ public class Graph<T> implements GraphADT<T>
    /******************************************************************
      Returns an iterator that contains the shortest path between
      the two vertices.
+     * @param startIndex
+     * @param targetIndex
+     * @return 
    ******************************************************************/
    public Iterator<T> iteratorShortestPath(int startIndex, 
                                            int targetIndex)
    {
-      ArrayUnorderedList<T> resultList = new ArrayUnorderedList<T>();
+      ArrayUnorderedList<T> resultList = new ArrayUnorderedList<>();
       if (!indexIsValid(startIndex) || !indexIsValid(targetIndex))
          return resultList.iterator();
 
       Iterator<Integer> it = iteratorShortestPathIndices(startIndex, 
                              targetIndex);      
       while (it.hasNext())
-         resultList.addToRear(vertices[((Integer)it.next()).intValue()]);
+         resultList.addToRear(vertices[(it.next())]);
       return resultList.iterator();
    }
 
    /******************************************************************
      Returns an iterator that contains the shortest path between
      the two vertices.
+     * @param startVertex
+     * @param targetVertex
+     * @return 
    ******************************************************************/
+   @Override
    public Iterator<T> iteratorShortestPath(T startVertex, T targetVertex)
    {
       return iteratorShortestPath(getIndex(startVertex), 
@@ -378,6 +415,9 @@ public class Graph<T> implements GraphADT<T>
    /******************************************************************
      Returns the weight of the least weight path in the network.  
      Returns positive infinity if no path is found.
+     * @param startIndex
+     * @param targetIndex
+     * @return 
    ******************************************************************/
    public int shortestPathLength(int startIndex, int targetIndex)
    {
@@ -390,7 +430,7 @@ public class Graph<T> implements GraphADT<T>
                              targetIndex);
 
       if (it.hasNext())
-         index1 = ((Integer)it.next()).intValue();
+         index1 = (it.next());
       else
          return 0;
 
@@ -406,6 +446,9 @@ public class Graph<T> implements GraphADT<T>
    /******************************************************************
      Returns the weight of the least weight path in the network.  
      Returns positive infinity if no path is found.
+     * @param startVertex
+     * @param targetVertex
+     * @return 
    ******************************************************************/
    public int shortestPathLength(T startVertex, T targetVertex)
    {
@@ -415,13 +458,14 @@ public class Graph<T> implements GraphADT<T>
 
    /******************************************************************
      Returns a minimum spanning tree of the graph.
+     * @return 
    ******************************************************************/
    public Graph getMST()
    {
       int x, y;
       int[] edge = new int[2];
-      LinkedStack<int[]> vertexStack = new LinkedStack<int[]>();
-      Graph<T> resultGraph = new Graph<T>();
+      LinkedStack<int[]> vertexStack = new LinkedStack<>();
+      Graph<T> resultGraph = new Graph<>();
 
       if (isEmpty() || !isConnected())
          return resultGraph;
@@ -508,7 +552,9 @@ public class Graph<T> implements GraphADT<T>
 
    /******************************************************************
      Returns the number of vertices in the graph.
+     * @return 
    ******************************************************************/
+   @Override
    public int size()
    {
       return numVertices;
@@ -516,7 +562,9 @@ public class Graph<T> implements GraphADT<T>
 
    /******************************************************************
      Returns true if the graph is empty and false otherwise. 
+     * @return 
    ******************************************************************/
+   @Override
    public boolean isEmpty()
    {
       return (numVertices == 0);
@@ -524,7 +572,9 @@ public class Graph<T> implements GraphADT<T>
 
    /******************************************************************
      Returns true if the graph is connected and false otherwise. 
+     * @return 
    ******************************************************************/
+   @Override
    public boolean isConnected()
    {
       if (isEmpty())
@@ -544,6 +594,8 @@ public class Graph<T> implements GraphADT<T>
    /******************************************************************
      Returns the index value of the first occurrence of the vertex.
      Returns -1 if the key is not found.
+     * @param vertex
+     * @return 
    ******************************************************************/
    public int getIndex(T vertex)
    {
@@ -555,6 +607,8 @@ public class Graph<T> implements GraphADT<T>
 
    /******************************************************************
      Returns true if the given index is valid. 
+     * @param index
+     * @return 
    ******************************************************************/
    protected boolean indexIsValid(int index)
    {
@@ -563,17 +617,19 @@ public class Graph<T> implements GraphADT<T>
 
    /******************************************************************
      Returns a copy of the vertices array.
+     * @return 
    ******************************************************************/
+   @Override
    public T[] getVertices()
    {
-      Object[] vertices = new Object[numVertices];
+      Object[] verticesO = new Object[numVertices];
       Object vertex;
       
       for (int i = 0; i < numVertices; i++)
       {
          vertex = this.vertices[i];
-         vertices[i] = vertex;
+         verticesO[i] = vertex;
       }
-      return (T[]) vertices;
+      return (T[]) verticesO;
    }
 }

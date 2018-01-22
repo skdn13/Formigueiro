@@ -5,12 +5,13 @@
  */
 package formigueiro;
 
-import colecoes.ArrayUnorderedList;
+import java.util.Iterator;
 import recursos.exceptions.ElementNotFoundException;
 import recursos.exceptions.EmptyCollectionException;
 import recursos.exceptions.FormigaCheiaException;
 import recursos.interfaces.IComida;
 import recursos.interfaces.IFormiga;
+import recursos.interfaces.collections.UnorderedListADT;
 
 /**
  *
@@ -18,7 +19,7 @@ import recursos.interfaces.IFormiga;
  */
 public class Formiga implements IFormiga {
 
-    private colecoes.ArrayUnorderedList<Comida> comida;
+    private UnorderedListADT<IComida> comida;
     private int capacidadeCarga;
     private int id;
     private int carga;
@@ -31,7 +32,7 @@ public class Formiga implements IFormiga {
         this.capacidadeCarga = capacidadeCarga;
         this.id = id;
         this.carga = 0;
-        this.comida = new ArrayUnorderedList<>();
+        this.comida = new colecoes.ArrayUnorderedList<>();
     }
 
     @Override
@@ -62,14 +63,38 @@ public class Formiga implements IFormiga {
         }
     }
 
+    public IComida getComida(int position) throws ElementNotFoundException {
+        Iterator<IComida> it = this.comida.iterator();
+        while (it.hasNext()) {
+            IComida next = it.next();
+            if (next.getId() == position) {
+                return next;
+            }
+        }
+        throw new recursos.exceptions.ElementNotFoundException("Comida não existe");
+    }
+
     @Override
     public IComida removeComida(int i) throws EmptyCollectionException, ElementNotFoundException {
-        return this.comida.removeLast();
+        Comida comida = (Comida) this.getComida(i);
+        return this.comida.remove(comida);
     }
 
     @Override
     public IComida removeComida() throws EmptyCollectionException {
         return this.comida.removeLast();
+    }
+
+    public void removeTodasAsComidas() throws ElementNotFoundException {
+        Iterator<IComida> it = this.comida.iterator();
+        while (it.hasNext()) {
+            IComida next = it.next();
+            this.comida.remove(next);
+        }
+    }
+
+    public UnorderedListADT<IComida> listarComidas() {
+        return this.comida;
     }
 
     @Override

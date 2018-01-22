@@ -11,7 +11,9 @@ import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import recursos.exceptions.ElementNotFoundException;
+import recursos.exceptions.EmptyCollectionException;
 import recursos.exceptions.FormigaCheiaException;
+import recursos.exceptions.ProcessedException;
 import recursos.interfaces.IComida;
 import recursos.interfaces.IFormiga;
 import recursos.interfaces.IFormigueiro;
@@ -29,10 +31,8 @@ public class Formigueiro implements IFormigueiro {
 
     private Sala entrada;
     private int tunelID;
-    private colecoes.ArrayUnorderedList<Processamento> salasProcessamento;
     private colecoes.ArrayUnorderedList<Sala> salas;
     private colecoes.ArrayUnorderedList<Formiga> formigas;
-    private colecoes.ArrayUnorderedList<Silo> silos;
     private colecoes.Network<ISala> network;
 
     public Formigueiro(Sala entrada) throws ElementNotFoundException {
@@ -198,13 +198,7 @@ public class Formigueiro implements IFormigueiro {
 
     @Override
     public boolean vizinhos(ISala isala, ISala isala1) {
-        ISala[] vertices = this.network.getVertices();
-        for (ISala sala : vertices) {
-            if (sala.equals(isala)) {
-                return true;
-            }
-        }
-        return false;
+        return this.network.getElement(this.network.getElementIndex(isala), this.network.getElementIndex(isala1)) != null;
     }
 
     @Override
@@ -269,7 +263,7 @@ public class Formigueiro implements IFormigueiro {
         Iterator<IComida> it = origem.iteratorComida();
         while (it.hasNext() && formiga.getCapacidadeCarga() != 0) {
             Comida comida = (Comida) it.next();
-            //this.recalcularRota(origem, idSalaDestino, iteradorFinal, comida);
+             //this.recalcularRota(origem, idSalaDestino, iteradorFinal, comida);
             try {
                 formiga.addComida(comida);
                 origem.retiraComida();
@@ -288,6 +282,7 @@ public class Formigueiro implements IFormigueiro {
 
         origem.saiFormiga(idFormiga);
         salaDestino.entraFormiga(formiga);
+        formiga.removeTodasAsComidas();
         return iteradorFinal;
     }
 
@@ -343,14 +338,19 @@ public class Formigueiro implements IFormigueiro {
         }
         origem.saiFormiga(idFormiga);
         salaDestino.entraFormiga(formiga);
+        formiga.removeTodasAsComidas();
         return iteradorFinal;
     }
 
     @Override
     public int custoDoCaminho(Iterator<ISala> itrtr) {
-        int custo = 0;
+        int custo = 0, position = 0;
         while (itrtr.hasNext()) {
-            itrtr.next().getX();
+            if (position >= this.network.numberOfVertices() - 1) {
+                break;
+            }
+            custo += this.network.getElement(position, position + 1).getDistance();
+            position++;
         }
         return custo;
     }

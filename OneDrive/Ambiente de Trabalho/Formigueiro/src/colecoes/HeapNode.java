@@ -8,6 +8,7 @@ package colecoes;
 /**
  *
  * @author pmms8
+ * @param <T>
  */
 public class HeapNode<T> extends BinaryTreeNode<T> {
     protected HeapNode<T> parent;

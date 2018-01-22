@@ -5,13 +5,13 @@
  */
 package colecoes;
 
-import Excecoes.EmptyCollectionException;
 import java.util.Iterator;
 import recursos.interfaces.collections.ListADT;
 
 /**
  *
  * @author pmms8
+ * @param <T>
  */
 public class ArrayList<T> implements ListADT<T> {
 

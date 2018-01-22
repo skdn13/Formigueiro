@@ -5,7 +5,6 @@
  */
 package colecoes;
 
-import Excecoes.EmptyCollectionException;
 import recursos.interfaces.collections.QueueADT;
 
 /**
@@ -95,5 +94,9 @@ public class LinkedQueue<T> implements QueueADT<T> {
             throw new recursos.exceptions.EmptyCollectionException("Queue Vazia");
         }
         return this.head.getElement();
+    }
+
+    public StackIterator<?> getIterator() {
+        return new StackIterator<>(this.head);
     }
 }
