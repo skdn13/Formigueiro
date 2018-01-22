@@ -34,7 +34,6 @@ public class Iniciar {
         formigueiro.addSala(sala5);
         formigueiro.ligaSala(sala3, sala2, 5);
         FormigueiroViewer janela = new FormigueiroViewer(formigueiro);
-        //
     }
 
 }
