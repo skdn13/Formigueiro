@@ -420,6 +420,94 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         }
 
         return resultList.iterator();
+
+    }
+
+    protected Iterator<Integer> iteratorShortestPathIndicesTunel(int startIndex, int targetIndex, int cargaFormiga) {
+        int index;
+        double weight;
+        int[] predecessor = new int[numVertices];
+        LinkedHeap<Double> traversalMinHeap = new LinkedHeap<Double>();
+        ArrayUnorderedList<Integer> resultList
+                = new ArrayUnorderedList<Integer>();
+        LinkedStack<Integer> stack = new LinkedStack<Integer>();
+
+        int[] pathIndex = new int[numVertices];
+        double[] pathWeight = new double[numVertices];
+        for (int i = 0; i < numVertices; i++) {
+            pathWeight[i] = Double.POSITIVE_INFINITY;
+        }
+
+        boolean[] visited = new boolean[numVertices];
+        for (int i = 0; i < numVertices; i++) {
+            visited[i] = false;
+        }
+
+        if (!indexIsValid(startIndex) || !indexIsValid(targetIndex)
+                || (startIndex == targetIndex) || isEmpty()) {
+            return resultList.iterator();
+        }
+
+        pathWeight[startIndex] = 0;
+        predecessor[startIndex] = -1;
+        visited[startIndex] = true;
+        weight = 0;
+
+        /**
+         * Update the pathWeight for each vertex except the startVertex. Notice
+         * that all vertices not adjacent to the startVertex will have a
+         * pathWeight of infinity for now.
+         */
+        for (int i = 0; i < numVertices; i++) {
+            if (!visited[i] && adjMatrix[startIndex][i] != null && cargaFormiga <= adjMatrix[startIndex][i].getRadious()) {
+                pathWeight[i] = pathWeight[startIndex] + adjMatrix[startIndex][i].getDistance();
+                predecessor[i] = startIndex;
+                traversalMinHeap.addElement(new Double(pathWeight[i]));
+            }
+
+        }
+
+        do {
+            weight = (traversalMinHeap.removeMin()).doubleValue();
+            traversalMinHeap.removeAllElements();
+            if (weight == Double.POSITIVE_INFINITY) // no possible path
+            {
+                return resultList.iterator();
+            } else {
+                index = getIndexOfAdjVertexWithWeightOfTunel(visited, pathWeight,
+                        weight, cargaFormiga);
+                visited[index] = true;
+            }
+
+            /**
+             * Update the pathWeight for each vertex that has has not been
+             * visited and is adjacent to the last vertex that was visited.
+             * Also, add each unvisited vertex to the heap.
+             */
+            for (int i = 0; i < numVertices; i++) {
+                if (!visited[i]) {
+                    if ((adjMatrix[index][i] != null)
+                            && (pathWeight[index] + adjMatrix[index][i].getDistance()) < pathWeight[i] && cargaFormiga <= adjMatrix[index][i].getRadious() ) {
+                        pathWeight[i] = pathWeight[index] + adjMatrix[index][i].getDistance();
+                        predecessor[i] = index;
+                    }
+                    traversalMinHeap.addElement(new Double(pathWeight[i]));
+                }
+            }
+        } while (!traversalMinHeap.isEmpty() && !visited[targetIndex]);
+
+        index = targetIndex;
+        stack.enqueue(new Integer(index));
+        do {
+            index = predecessor[index];
+            stack.enqueue(new Integer(index));
+        } while (index != startIndex);
+
+        while (!stack.isEmpty()) {
+            resultList.addToRear((stack.dequeue()));
+        }
+
+        return resultList.iterator();
     }
 
     /**
@@ -443,6 +531,20 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         return -1;  // should never get to here
     }
 
+        protected int getIndexOfAdjVertexWithWeightOfTunel(boolean[] visited,
+            double[] pathWeight, double weight, int cargaFormiga) {
+        for (int i = 0; i < numVertices; i++) {
+            if ((pathWeight[i] == weight) && !visited[i]) {
+                for (int j = 0; j < numVertices; j++) {
+                    if (adjMatrix[i][j] != null && visited[j]) {
+                        return i;
+                    }
+                }
+            }
+        }
+
+        return -1;  // should never get to here
+    }
     /**
      * ****************************************************************
      * Returns an iterator that contains the shortest path between the two
@@ -457,6 +559,20 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
 
         Iterator<Integer> it = iteratorShortestPathIndices(startIndex,
                 targetIndex);
+        while (it.hasNext()) {
+            templist.addToRear(vertices[(it.next()).intValue()]);
+        }
+        return templist.iterator();
+    }
+
+    public Iterator<T> iteratorShortestPathTunel(int startIndex, int targetIndex, int cargaFormiga) {
+        ArrayUnorderedList templist = new ArrayUnorderedList();
+        if (!indexIsValid(startIndex) || !indexIsValid(targetIndex)) {
+            return templist.iterator();
+        }
+
+        Iterator<Integer> it = iteratorShortestPathIndicesTunel(startIndex,
+                targetIndex, cargaFormiga);
         while (it.hasNext()) {
             templist.addToRear(vertices[(it.next()).intValue()]);
         }
@@ -682,7 +798,8 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         }
         return 0;
     }
-    public int numberOfVertices(){
+
+    public int numberOfVertices() {
         return this.numVertices;
     }
 

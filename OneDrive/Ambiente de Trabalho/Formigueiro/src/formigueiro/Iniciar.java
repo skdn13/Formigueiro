@@ -58,11 +58,11 @@ public class Iniciar {
         formigueiro.ligaSala(formigueiro.getSala(2), formigueiro.getSala(5), 2);
         formigueiro.ligaSala(formigueiro.getSala(2), formigueiro.getSala(4), 2);
         formigueiro.ligaSala(formigueiro.getSala(3), formigueiro.getSala(6), 2);
-        formigueiro.ligaSala(formigueiro.getSala(3), formigueiro.getSala(7), 2);
-        formigueiro.ligaSala(formigueiro.getSala(4), formigueiro.getSala(3), 2);
-        formigueiro.ligaSala(formigueiro.getSala(4), formigueiro.getSala(5), 2);
+        formigueiro.ligaSala(formigueiro.getSala(3), formigueiro.getSala(7), 4);
+        formigueiro.ligaSala(formigueiro.getSala(4), formigueiro.getSala(3), 4);
+        formigueiro.ligaSala(formigueiro.getSala(4), formigueiro.getSala(5), 4);
         formigueiro.ligaSala(formigueiro.getSala(5), formigueiro.getSala(6), 2);
-        formigueiro.ligaSala(formigueiro.getSala(6), formigueiro.getSala(7), 2);
+        formigueiro.ligaSala(formigueiro.getSala(6), formigueiro.getSala(7), 4);
 
         //Desenhar o caminho na JFrame
         formigueiro.printNetwork();

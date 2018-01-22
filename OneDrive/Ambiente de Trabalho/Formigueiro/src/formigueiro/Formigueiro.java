@@ -245,13 +245,8 @@ public class Formigueiro implements IFormigueiro {
         }
     }
 
-    public Iterator<ISala> recalcularRota(Sala origem, int salaDestino, Iterator<ISala> iterador, Comida comida) {
-        Iterator<ISala> novaRota = iterador;
-        Tunel tunel = (Tunel) this.network.getElement(origem.getId() - 1, origem.getId());
-        while (comida.getTamanho() > tunel.getRadious()) {
-            novaRota = this.network.iteratorShortestPath(origem.getId() - 1, salaDestino - 1);
-        }
-        return novaRota;
+    public Iterator<ISala> recalcularRota(Sala origem, int salaDestino, int cargaFormiga) {
+        return this.network.iteratorShortestPathTunel(origem.getId() - 1, salaDestino - 1, cargaFormiga);
     }
 
     public Iterator<ISala> moveFormigaProcessamento(int idFormiga, int idSalaDestino) throws ElementNotFoundException {
@@ -260,10 +255,10 @@ public class Formigueiro implements IFormigueiro {
         Formiga formiga = (Formiga) getFormiga(idFormiga);
         int capacidadeAtual = 0;
         Processamento salaDestino = (Processamento) this.getSala(idSalaDestino);
+        Tunel tunel = (Tunel) this.network.getElement(origem.getId() - 1, origem.getId());
         Iterator<IComida> it = origem.iteratorComida();
         while (it.hasNext() && formiga.getCapacidadeCarga() != 0) {
             Comida comida = (Comida) it.next();
-             //this.recalcularRota(origem, idSalaDestino, iteradorFinal, comida);
             try {
                 formiga.addComida(comida);
                 origem.retiraComida();
@@ -279,7 +274,9 @@ public class Formigueiro implements IFormigueiro {
                 formiga.setCarga(formiga.getCapacidadeCarga() - capacidadeAtual);
             }
         }
-
+        if (capacidadeAtual > tunel.getRadious()) {
+            iteradorFinal = this.recalcularRota(origem, idSalaDestino, capacidadeAtual);
+        }
         origem.saiFormiga(idFormiga);
         salaDestino.entraFormiga(formiga);
         formiga.removeTodasAsComidas();
