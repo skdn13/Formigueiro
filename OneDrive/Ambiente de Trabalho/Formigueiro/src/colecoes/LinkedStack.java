@@ -56,10 +56,6 @@ public class LinkedStack<T> implements QueueADT<T> {
             head = new LinearNode<>(element);
         } else {
             LinearNode<T> novoElemento = new LinearNode<>(element);
-            LinearNode<T> elementoAtual = this.head;
-            while (elementoAtual.getNext() != null) {
-                elementoAtual = elementoAtual.getNext();
-            }
             novoElemento.setNext(this.head);
             this.head = novoElemento;
         }
@@ -94,7 +90,7 @@ public class LinkedStack<T> implements QueueADT<T> {
         return this.head.getElement();
     }
 
-    public StackIterator<?> getIterator() {
-        return new StackIterator<>(this.head);
+    public LinkedIterator<?> getIterator() {
+        return new LinkedIterator<>(this.head);
     }
 }

@@ -3,11 +3,11 @@ package colecoes;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class StackIterator<T> implements Iterator<T> {
+public class LinkedIterator<T> implements Iterator<T> {
 
     private LinearNode<T> current;
 
-    public StackIterator(LinearNode<T> list) {
+    public LinkedIterator(LinearNode<T> list) {
         this.current = list;
     }
 

@@ -23,6 +23,7 @@ public class Processamento extends Sala implements IProcessamento {
 
     private UnorderedListADT<IFormiga> formigas;
     private LinkedQueue<Comida> comida;
+    private int count = 1;
 
     public Processamento(int id, int x, int y, String descricao) {
         super(id, x, y, descricao);
@@ -37,20 +38,25 @@ public class Processamento extends Sala implements IProcessamento {
 
     @Override
     public IComida getProximaComida() throws EmptyCollectionException, ProcessedException {
-        int tamanho = this.comida.first().getTamanho();
         if (this.comida.isEmpty()) {
             throw new EmptyCollectionException("Queue vazia!");
+        }
+        int tamanho = 0;
+        if (this.comida.size() == 1) {
+            tamanho = this.comida.first().getTamanho();
         } else {
-            if (tamanho == 1) {
-                return this.retiraComida();
-            } else {
-                this.retiraComida();
-                Comida c = new Comida(this.comida.first().getId() + 1, 1);
-                for (int i = 0; i < tamanho; i++) {
-                    this.acrescentaComida(c);
-                }
-                throw new ProcessedException(c);
+            tamanho = this.comida.last().getTamanho();
+        }
+        if (tamanho == 1) {
+            return this.retiraComida();
+        } else {
+            Comida retirada = (Comida) this.retiraComida();
+            for (int i = 0; i < tamanho; i++) {
+                Comida c = new Comida(retirada.getId() + i + count, 1);
+                count++;
+                this.acrescentaComida(c);
             }
+            throw new ProcessedException(retirada);
         }
     }
 
@@ -60,6 +66,10 @@ public class Processamento extends Sala implements IProcessamento {
         } else {
             return this.comida.dequeue();
         }
+    }
+
+    public int getNumeroComidas() {
+        return this.comida.size();
     }
 
     @Override

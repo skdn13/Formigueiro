@@ -35,9 +35,10 @@ public class Iniciar {
         Silo sala7 = (Silo) formigueiro.criaSilo(7, "Sala 7", 800, 150);
 
         //Adicionar formigas e comida às salas
-        sala5.guardaComida(formigueiro.criaComida(1, 2));
-        sala5.guardaComida(formigueiro.criaComida(2, 2));
-        sala5.guardaComida(formigueiro.criaComida(3, 5));
+        sala5.guardaComida(formigueiro.criaComida(1, 1));
+        sala5.guardaComida(formigueiro.criaComida(2, 1));
+        sala5.guardaComida(formigueiro.criaComida(3, 2));
+        sala5.guardaComida(formigueiro.criaComida(4, 2));
         sala5.entraFormiga(formigueiro.criaFormiga(1, 3));
         sala5.entraFormiga(formigueiro.criaFormiga(2, 5));
         sala7.guardaComida(formigueiro.criaComida(4, 2));
@@ -56,13 +57,13 @@ public class Iniciar {
         formigueiro.ligaSala(formigueiro.getSala(2), formigueiro.getSala(6), 2);
         formigueiro.ligaSala(formigueiro.getSala(2), formigueiro.getSala(3), 2);
         formigueiro.ligaSala(formigueiro.getSala(2), formigueiro.getSala(5), 2);
-        formigueiro.ligaSala(formigueiro.getSala(2), formigueiro.getSala(4), 2);
+        formigueiro.ligaSala(formigueiro.getSala(2), formigueiro.getSala(4), 4);
         formigueiro.ligaSala(formigueiro.getSala(3), formigueiro.getSala(6), 2);
         formigueiro.ligaSala(formigueiro.getSala(3), formigueiro.getSala(7), 4);
         formigueiro.ligaSala(formigueiro.getSala(4), formigueiro.getSala(3), 4);
-        formigueiro.ligaSala(formigueiro.getSala(4), formigueiro.getSala(5), 4);
+        formigueiro.ligaSala(formigueiro.getSala(4), formigueiro.getSala(5), 2);
         formigueiro.ligaSala(formigueiro.getSala(5), formigueiro.getSala(6), 2);
-        formigueiro.ligaSala(formigueiro.getSala(6), formigueiro.getSala(7), 4);
+        formigueiro.ligaSala(formigueiro.getSala(6), formigueiro.getSala(7), 2);
 
         //Desenhar o caminho na JFrame
         formigueiro.printNetwork();

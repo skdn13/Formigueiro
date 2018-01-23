@@ -459,7 +459,7 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
          * pathWeight of infinity for now.
          */
         for (int i = 0; i < numVertices; i++) {
-            if (!visited[i] && adjMatrix[startIndex][i] != null && cargaFormiga <= adjMatrix[startIndex][i].getRadious()) {
+            if (!visited[i] && adjMatrix[startIndex][i] != null  && cargaFormiga <= adjMatrix[startIndex][i].getRadious()) {
                 pathWeight[i] = pathWeight[startIndex] + adjMatrix[startIndex][i].getDistance();
                 predecessor[i] = startIndex;
                 traversalMinHeap.addElement(new Double(pathWeight[i]));
@@ -474,8 +474,8 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
             {
                 return resultList.iterator();
             } else {
-                index = getIndexOfAdjVertexWithWeightOfTunel(visited, pathWeight,
-                        weight, cargaFormiga);
+                index = getIndexOfAdjVertexWithWeightOf(visited, pathWeight,
+                        weight);
                 visited[index] = true;
             }
 
@@ -487,7 +487,7 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
             for (int i = 0; i < numVertices; i++) {
                 if (!visited[i]) {
                     if ((adjMatrix[index][i] != null)
-                            && (pathWeight[index] + adjMatrix[index][i].getDistance()) < pathWeight[i] && cargaFormiga <= adjMatrix[index][i].getRadious() ) {
+                            && (pathWeight[index] + adjMatrix[index][i].getDistance()) < pathWeight[i] && cargaFormiga <= adjMatrix[index][i].getRadious()) {
                         pathWeight[i] = pathWeight[index] + adjMatrix[index][i].getDistance();
                         predecessor[i] = index;
                     }
@@ -531,20 +531,6 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         return -1;  // should never get to here
     }
 
-        protected int getIndexOfAdjVertexWithWeightOfTunel(boolean[] visited,
-            double[] pathWeight, double weight, int cargaFormiga) {
-        for (int i = 0; i < numVertices; i++) {
-            if ((pathWeight[i] == weight) && !visited[i]) {
-                for (int j = 0; j < numVertices; j++) {
-                    if (adjMatrix[i][j] != null && visited[j]) {
-                        return i;
-                    }
-                }
-            }
-        }
-
-        return -1;  // should never get to here
-    }
     /**
      * ****************************************************************
      * Returns an iterator that contains the shortest path between the two

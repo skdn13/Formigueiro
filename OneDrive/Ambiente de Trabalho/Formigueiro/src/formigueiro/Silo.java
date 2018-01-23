@@ -44,6 +44,10 @@ public class Silo extends Sala implements ISilo {
         return (Iterator<IComida>) this.comida.getIterator();
     }
 
+    public int getNumeroComidas() {
+        return this.comida.size();
+    }
+
     @Override
     public int getId() {
         return super.getId();

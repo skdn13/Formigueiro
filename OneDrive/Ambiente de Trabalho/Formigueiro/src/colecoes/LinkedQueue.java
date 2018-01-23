@@ -67,6 +67,17 @@ public class LinkedQueue<T> implements QueueADT<T> {
         this.numberOfElements++;
     }
 
+    public void enqueueFirst(T element) {
+        if (head == null) {
+            head = new LinearNode<>(element);
+        } else {
+            LinearNode<T> novoElemento = new LinearNode<>(element);
+            novoElemento.setNext(this.head);
+            this.head = novoElemento;
+        }
+        this.numberOfElements++;
+    }
+
     @Override
     public T dequeue() throws recursos.exceptions.EmptyCollectionException {
         T element = null;
@@ -88,6 +99,31 @@ public class LinkedQueue<T> implements QueueADT<T> {
         return element;
     }
 
+    public T dequeueLast() throws recursos.exceptions.EmptyCollectionException {
+        T element = null;
+        LinearNode<T> atual = this.head;
+        LinearNode<T> atual2 = this.tail;
+        switch (this.numberOfElements) {
+            case 0:
+                throw new recursos.exceptions.EmptyCollectionException("Não há elementos a eliminar!");
+            case 1:
+                element = atual.getElement();
+                this.head = null;
+                break;
+            default:
+                element = atual2.getElement();
+                while (atual.getNext() != null) {
+                    atual = atual.getNext();
+                }
+                atual.getPrevious().setNext(null);
+                atual = tail.getPrevious();
+                this.tail = atual;
+                break;
+        }
+        this.numberOfElements--;
+        return element;
+    }
+
     @Override
     public T first() throws recursos.exceptions.EmptyCollectionException {
         if (isEmpty()) {
@@ -96,7 +132,14 @@ public class LinkedQueue<T> implements QueueADT<T> {
         return this.head.getElement();
     }
 
-    public StackIterator<?> getIterator() {
-        return new StackIterator<>(this.head);
+    public T last() throws recursos.exceptions.EmptyCollectionException {
+        if (isEmpty()) {
+            throw new recursos.exceptions.EmptyCollectionException("Queue Vazia");
+        }
+        return this.tail.getElement();
+    }
+
+    public LinkedIterator<?> getIterator() {
+        return new LinkedIterator<>(this.head);
     }
 }
