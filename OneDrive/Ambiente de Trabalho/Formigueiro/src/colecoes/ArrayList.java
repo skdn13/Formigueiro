@@ -53,8 +53,7 @@ public class ArrayList<T> implements ListADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T removeFirst() throws recursos.exceptions.EmptyCollectionException {
@@ -75,8 +74,7 @@ public class ArrayList<T> implements ListADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T removeLast() throws recursos.exceptions.EmptyCollectionException {
@@ -112,8 +110,7 @@ public class ArrayList<T> implements ListADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T first() throws recursos.exceptions.EmptyCollectionException {
@@ -126,8 +123,7 @@ public class ArrayList<T> implements ListADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T last() throws recursos.exceptions.EmptyCollectionException {

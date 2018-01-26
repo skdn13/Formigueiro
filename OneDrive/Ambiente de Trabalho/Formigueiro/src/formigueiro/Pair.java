@@ -48,5 +48,5 @@ public class Pair implements IPair {
     public String toString() {
         return "Pair{" + "first=" + first + ", second=" + second + '}';
     }
-    
+
 }

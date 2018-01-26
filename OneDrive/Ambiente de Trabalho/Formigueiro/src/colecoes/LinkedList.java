@@ -62,8 +62,7 @@ public class LinkedList<T> implements ListADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T removeFirst() throws EmptyCollectionException {
@@ -83,8 +82,7 @@ public class LinkedList<T> implements ListADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T removeLast() throws EmptyCollectionException {

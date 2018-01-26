@@ -85,8 +85,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T dequeue() throws recursos.exceptions.EmptyCollectionException {
@@ -111,8 +110,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T first() throws recursos.exceptions.EmptyCollectionException {
@@ -124,8 +122,7 @@ public class LinkedQueue<T> implements QueueADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     public T last() throws recursos.exceptions.EmptyCollectionException {
         if (isEmpty()) {

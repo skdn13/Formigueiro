@@ -88,8 +88,7 @@ public class LinkedHeap<T> extends LinkedBinaryTree<T> implements HeapADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T removeMin() throws recursos.exceptions.EmptyCollectionException {
@@ -169,8 +168,7 @@ public class LinkedHeap<T> extends LinkedBinaryTree<T> implements HeapADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T findMin() throws EmptyCollectionException {

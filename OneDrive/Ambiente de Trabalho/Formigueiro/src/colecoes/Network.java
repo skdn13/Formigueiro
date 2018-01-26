@@ -714,7 +714,7 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         for (int i = 0; i < numVertices; i++) {
             for (int j = 0; j < numVertices; j++) {
                 resultGraph.adjMatrix[i][j].setDistance((int) Double.POSITIVE_INFINITY);
-               // resultGraph.adjMatrix[i][j] = null;
+                // resultGraph.adjMatrix[i][j] = null;
             }
         }
         resultGraph.vertices = (T[]) (new Object[numVertices]);

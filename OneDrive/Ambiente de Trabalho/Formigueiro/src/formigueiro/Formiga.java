@@ -123,8 +123,7 @@ public class Formiga implements IFormiga {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public IComida removeComida() throws EmptyCollectionException {

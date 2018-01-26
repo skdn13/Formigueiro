@@ -175,8 +175,7 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public Iterator<T> iteratorLevelOrder() throws recursos.exceptions.EmptyCollectionException {

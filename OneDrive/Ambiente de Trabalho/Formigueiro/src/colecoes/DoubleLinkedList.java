@@ -26,8 +26,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T removeFirst() throws EmptyCollectionException {
@@ -48,8 +47,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T removeLast() throws EmptyCollectionException {
@@ -102,8 +100,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T first() throws EmptyCollectionException {
@@ -115,8 +112,7 @@ public class DoubleLinkedList<T> implements ListADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T last() throws EmptyCollectionException {

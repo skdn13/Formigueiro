@@ -33,7 +33,7 @@ public class Graph<T> implements GraphADT<T> {
     /**
      * ****************************************************************
      * Creates an empty graph.
-   *****************************************************************
+     * ****************************************************************
      */
     public Graph() {
         numVertices = 0;
@@ -45,8 +45,7 @@ public class Graph<T> implements GraphADT<T> {
      * ****************************************************************
      * Returns a string representation of the adjacency matrix.
      *
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     @Override
     public String toString() {
@@ -99,7 +98,7 @@ public class Graph<T> implements GraphADT<T> {
      *
      * @param index1
      * @param index2
-   *****************************************************************
+     * ****************************************************************
      */
     public void addEdge(int index1, int index2) {
         if (indexIsValid(index1) && indexIsValid(index2)) {
@@ -114,7 +113,7 @@ public class Graph<T> implements GraphADT<T> {
      *
      * @param index1
      * @param index2
-   *****************************************************************
+     * ****************************************************************
      */
     public void removeEdge(int index1, int index2) {
         if (indexIsValid(index1) && indexIsValid(index2)) {
@@ -129,7 +128,7 @@ public class Graph<T> implements GraphADT<T> {
      *
      * @param vertex1
      * @param vertex2
-   *****************************************************************
+     * ****************************************************************
      */
     @Override
     public void addEdge(T vertex1, T vertex2) {
@@ -142,7 +141,7 @@ public class Graph<T> implements GraphADT<T> {
      *
      * @param vertex1
      * @param vertex2
-   *****************************************************************
+     * ****************************************************************
      */
     @Override
     public void removeEdge(T vertex1, T vertex2) {
@@ -153,7 +152,7 @@ public class Graph<T> implements GraphADT<T> {
      * ****************************************************************
      * Adds a vertex to the graph, expanding the capacity of the graph if
      * necessary.
-   *****************************************************************
+     * ****************************************************************
      */
     public void addVertex() {
         if (numVertices == vertices.length) {
@@ -174,7 +173,7 @@ public class Graph<T> implements GraphADT<T> {
      * necessary. It also associates an object with the vertex.
      *
      * @param vertex
-   *****************************************************************
+     * ****************************************************************
      */
     @Override
     public void addVertex(T vertex) {
@@ -196,7 +195,7 @@ public class Graph<T> implements GraphADT<T> {
      * affect the index values of other vertices.
      *
      * @param index
-   *****************************************************************
+     * ****************************************************************
      */
     public void removeVertex(int index) {
         if (indexIsValid(index)) {
@@ -225,7 +224,7 @@ public class Graph<T> implements GraphADT<T> {
      * Removes a single vertex with the given value from the graph.
      *
      * @param vertex
-   *****************************************************************
+     * ****************************************************************
      */
     @Override
     public void removeVertex(T vertex) {
@@ -243,8 +242,7 @@ public class Graph<T> implements GraphADT<T> {
      * at the given index.
      *
      * @param startIndex
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     public Iterator<T> iteratorDFS(int startIndex) {
         Integer x;
@@ -294,8 +292,7 @@ public class Graph<T> implements GraphADT<T> {
      * at the given vertex.
      *
      * @param startVertex
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     @Override
     public Iterator<T> iteratorDFS(T startVertex) {
@@ -308,8 +305,7 @@ public class Graph<T> implements GraphADT<T> {
      * starting at the given index.
      *
      * @param startIndex
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     public Iterator<T> iteratorBFS(int startIndex) {
         Integer x;
@@ -352,8 +348,7 @@ public class Graph<T> implements GraphADT<T> {
      * starting at the given vertex.
      *
      * @param startVertex
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     @Override
     public Iterator<T> iteratorBFS(T startVertex) {
@@ -367,8 +362,7 @@ public class Graph<T> implements GraphADT<T> {
      *
      * @param startIndex
      * @param targetIndex
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     protected Iterator<Integer> iteratorShortestPathIndices(int startIndex, int targetIndex) {
         int index = startIndex;
@@ -436,8 +430,7 @@ public class Graph<T> implements GraphADT<T> {
      *
      * @param startIndex
      * @param targetIndex
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     public Iterator<T> iteratorShortestPath(int startIndex,
             int targetIndex) {
@@ -461,8 +454,7 @@ public class Graph<T> implements GraphADT<T> {
      *
      * @param startVertex
      * @param targetVertex
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     @Override
     public Iterator<T> iteratorShortestPath(T startVertex, T targetVertex) {
@@ -477,8 +469,7 @@ public class Graph<T> implements GraphADT<T> {
      *
      * @param startIndex
      * @param targetIndex
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     public int shortestPathLength(int startIndex, int targetIndex) {
         int result = 0;
@@ -511,8 +502,7 @@ public class Graph<T> implements GraphADT<T> {
      *
      * @param startVertex
      * @param targetVertex
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     public int shortestPathLength(T startVertex, T targetVertex) {
         return shortestPathLength(getIndex(startVertex), getIndex(
@@ -523,8 +513,7 @@ public class Graph<T> implements GraphADT<T> {
      * ****************************************************************
      * Returns a minimum spanning tree of the graph.
      *
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     public Graph getMST() {
         int x, y;
@@ -601,7 +590,7 @@ public class Graph<T> implements GraphADT<T> {
      * ****************************************************************
      * Creates new arrays to store the contents of the graph with twice the
      * capacity.
-   *****************************************************************
+     * ****************************************************************
      */
     protected void expandCapacity() {
         T[] largerVertices = (T[]) (new Object[vertices.length * 2]);
@@ -623,8 +612,7 @@ public class Graph<T> implements GraphADT<T> {
      * ****************************************************************
      * Returns the number of vertices in the graph.
      *
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     @Override
     public int size() {
@@ -635,8 +623,7 @@ public class Graph<T> implements GraphADT<T> {
      * ****************************************************************
      * Returns true if the graph is empty and false otherwise.
      *
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     @Override
     public boolean isEmpty() {
@@ -647,8 +634,7 @@ public class Graph<T> implements GraphADT<T> {
      * ****************************************************************
      * Returns true if the graph is connected and false otherwise.
      *
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     @Override
     public boolean isConnected() {
@@ -672,8 +658,7 @@ public class Graph<T> implements GraphADT<T> {
      * if the key is not found.
      *
      * @param vertex
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     public int getIndex(T vertex) {
         for (int i = 0; i < numVertices; i++) {
@@ -689,8 +674,7 @@ public class Graph<T> implements GraphADT<T> {
      * Returns true if the given index is valid.
      *
      * @param index
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     protected boolean indexIsValid(int index) {
         return ((index < numVertices) && (index >= 0));
@@ -700,8 +684,7 @@ public class Graph<T> implements GraphADT<T> {
      * ****************************************************************
      * Returns a copy of the vertices array.
      *
-     * @return 
-   *****************************************************************
+     * @return ****************************************************************
      */
     @Override
     public T[] getVertices() {

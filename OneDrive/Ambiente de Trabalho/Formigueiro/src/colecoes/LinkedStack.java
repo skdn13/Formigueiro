@@ -83,8 +83,7 @@ public class LinkedStack<T> implements StackADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T pop() throws recursos.exceptions.EmptyCollectionException {
@@ -108,8 +107,7 @@ public class LinkedStack<T> implements StackADT<T> {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public T peek() throws recursos.exceptions.EmptyCollectionException {

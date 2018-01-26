@@ -23,8 +23,11 @@ public class Tunel implements ITunel {
      * @param radious
      * @param id
      */
-    public Tunel(int distance, int radious, int id) {
+    public Tunel(int distance, int radious, int id) throws Exception {
         this.distance = distance;
+        if(radious < 1){
+            throw new Exception("Raio menor que 1");
+        }
         this.radious = radious;
         this.id = id;
     }

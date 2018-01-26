@@ -47,8 +47,7 @@ public class Silo extends Sala implements ISilo {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     @Override
     public IComida retiraComida() throws recursos.exceptions.EmptyCollectionException {

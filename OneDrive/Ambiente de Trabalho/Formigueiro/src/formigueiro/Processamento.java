@@ -49,8 +49,7 @@ public class Processamento extends Sala implements IProcessamento {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      * @throws ProcessedException
      */
     @Override
@@ -74,8 +73,7 @@ public class Processamento extends Sala implements IProcessamento {
 
     /**
      *
-     * @return
-     * @throws EmptyCollectionException
+     * @return @throws EmptyCollectionException
      */
     public IComida retiraComida() throws recursos.exceptions.EmptyCollectionException {
         if (this.comida.isEmpty()) {

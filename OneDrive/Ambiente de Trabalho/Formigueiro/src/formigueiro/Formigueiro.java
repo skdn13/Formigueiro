@@ -8,6 +8,8 @@ package formigueiro;
 import colecoes.ArrayUnorderedList;
 import colecoes.Network;
 import java.util.Iterator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import recursos.exceptions.ElementNotFoundException;
 import recursos.exceptions.EmptyCollectionException;
 import recursos.exceptions.FormigaCheiaException;
@@ -118,7 +120,12 @@ public class Formigueiro implements IFormigueiro {
     @Override
     public void ligaSala(ISala isala, ISala isala1, int i) {
         int distance = (int) Math.hypot(isala.getX() - isala1.getX(), isala.getY() - isala1.getY());
-        Tunel tunel = new Tunel(distance, i, this.tunelID);
+        Tunel tunel = null;
+        try {
+            tunel = new Tunel(distance, i, this.tunelID);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
         try {
             this.network.addEdge(isala, isala1, tunel);
             this.tunelID++;
