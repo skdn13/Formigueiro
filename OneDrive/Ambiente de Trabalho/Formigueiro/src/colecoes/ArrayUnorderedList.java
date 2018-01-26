@@ -1,10 +1,11 @@
 package colecoes;
 
+import java.util.Iterator;
 import recursos.interfaces.collections.UnorderedListADT;
 
 public class ArrayUnorderedList<T> extends ArrayList<T> implements UnorderedListADT<T> {
 
-    private ArrayIterator<?> iterator;
+    private Iterator<T> iterator;
 
     @Override
     public void addToFront(T element) {
@@ -68,7 +69,8 @@ public class ArrayUnorderedList<T> extends ArrayList<T> implements UnorderedList
         super.setLast(k);
     }
 
-    public ArrayIterator<?> getIterator() {
+    @Override
+    public Iterator<T> iterator() {
         return this.iterator = new ArrayIterator<>(super.getList(), super.getLast());
     }
 }

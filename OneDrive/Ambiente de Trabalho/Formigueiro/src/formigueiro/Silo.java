@@ -25,18 +25,18 @@ public class Silo extends Sala implements ISilo {
 
     public Silo(int id, int x, int y, String descricao) {
         super(id, x, y, descricao);
-        formigas = new colecoes.ArrayUnorderedList<>();
+        formigas = new colecoes.DoubleLinkedUnorderedList<>();
         comida = new LinkedStack<>();
     }
 
     @Override
     public void guardaComida(IComida ic) {
-        this.comida.enqueue((Comida) ic);
+        this.comida.push((Comida) ic);
     }
 
     @Override
     public IComida retiraComida() throws recursos.exceptions.EmptyCollectionException {
-        return this.comida.dequeue();
+        return this.comida.pop();
     }
 
     @Override

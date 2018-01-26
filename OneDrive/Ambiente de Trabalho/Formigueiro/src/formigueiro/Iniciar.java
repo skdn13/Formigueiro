@@ -35,14 +35,10 @@ public class Iniciar {
         Silo sala7 = (Silo) formigueiro.criaSilo(7, "Sala 7", 800, 150);
 
         //Adicionar formigas e comida às salas
-        sala5.guardaComida(formigueiro.criaComida(1, 1));
-        sala5.guardaComida(formigueiro.criaComida(2, 1));
-        sala5.guardaComida(formigueiro.criaComida(3, 2));
-        sala5.guardaComida(formigueiro.criaComida(4, 2));
-        sala5.entraFormiga(formigueiro.criaFormiga(1, 3));
-        sala5.entraFormiga(formigueiro.criaFormiga(2, 5));
-        sala7.guardaComida(formigueiro.criaComida(4, 2));
-        sala7.guardaComida(formigueiro.criaComida(5, 2));
+        sala3.acrescentaComida(formigueiro.criaComida(1, 4));
+        //sala5.guardaComida(formigueiro.criaComida(2, 2));
+        //sala5.guardaComida(formigueiro.criaComida(3, 2));
+        sala3.entraFormiga(formigueiro.criaFormiga(1, 2));
 
         //Adicionar as salas ao formigueiro (Exceto a sala de entrada)
         formigueiro.addSala(sala2);
@@ -68,7 +64,8 @@ public class Iniciar {
         //Desenhar o caminho na JFrame
         formigueiro.printNetwork();
         FormigueiroViewer janela = new FormigueiroViewer(formigueiro);
-        janela.pintaCaminho(formigueiro.iteratorCarregaEMoveFormigaShortestPath(1, 3));
+        //    janela.pintaCaminho(formigueiro.iteratorCarregaEMoveFormigaShortestPath(1, 2));
+        janela.pintaCaminho(formigueiro.iteratorCarregaEMoveFormigaShortestPath(1, 5));
         Iterator<ISala> it = formigueiro.iterator();
         System.out.println("custo do caminho: " + formigueiro.custoDoCaminho(it));
         System.out.println("vizinhos: " + formigueiro.vizinhos(sala1, sala7));

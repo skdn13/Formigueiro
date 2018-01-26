@@ -1,103 +1,240 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package colecoes;
 
-/**
- *
- * @author pmms8
- * @param <T>
- */
-public class LinkedList<T> {
+import java.util.Iterator;
+import recursos.exceptions.EmptyCollectionException;
+import recursos.interfaces.collections.ListADT;
 
+public class LinkedList<T> implements ListADT<T> {
+
+    private int numberElements;
     private LinearNode<T> head;
-    private int contador;
+    private LinearNode<T> tail;
 
     public LinkedList() {
+        this.numberElements = 0;
         this.head = null;
-        this.contador = 0;
+        this.tail = null;
     }
 
-    public void add(T dados) {
+    public LinkedList(LinearNode<T> front) {
+        this.numberElements = 0;
+        this.head = front;
+        while (front.getNext() != null) {
+            front = front.getNext();
+            this.numberElements++;
+        }
+        this.tail = front;
 
+    }
+
+    public void add(T element) {
         if (head == null) {
-            head = new LinearNode<>(dados);
+            head = new LinearNode<>(element);
         } else {
-            LinearNode<T> novoElemento = new LinearNode<>(dados);
+            LinearNode<T> novoElemento = new LinearNode<>(element);
             LinearNode<T> elementoAtual = this.head;
+
             while (elementoAtual.getNext() != null) {
                 elementoAtual = elementoAtual.getNext();
             }
             elementoAtual.setNext(novoElemento);
+            this.tail = elementoAtual.getNext();
+            this.tail.setPrevious(elementoAtual);
         }
-        this.contador++;
+        this.numberElements++;
     }
 
-    public void remove(int indice) throws Exception {
-
-        if (indice < 0 || indice >= this.contador) {
-            throw new Exception("Indice incorreto!");
+    @Override
+    public T removeFirst() throws EmptyCollectionException {
+        if (isEmpty()) {
+            throw new EmptyCollectionException("The list is empty");
         }
-        if (indice == 0) {
-            this.head = this.head.getNext();
+
+        LinearNode<T> node = this.head;
+        this.head = this.head.getNext();
+
+        if (this.head == null) {
+            this.tail = null;
+        }
+        this.numberElements--;
+        return node.getElement();
+    }
+
+    @Override
+    public T removeLast() throws EmptyCollectionException {
+        if (isEmpty()) {
+            throw new EmptyCollectionException("The list is empty");
+        }
+
+        LinearNode<T> currentNode = this.head;
+        LinearNode<T> previousNode = null;
+
+        while (currentNode.getNext() != null) {
+            previousNode = currentNode;
+            currentNode = currentNode.getNext();
+        }
+        LinearNode<T> node = this.tail;
+        this.tail = previousNode;
+
+        if (this.tail == null) {
+            this.head = null;
         } else {
-            LinearNode<T> anterior = this.head;
-            for (int i = 0; i < indice - 1; i++) {
-                anterior = anterior.getNext();
+            this.tail.setNext(null);
+        }
+        this.numberElements--;
+        return node.getElement();
+    }
 
-            }
-            if (indice == contador - 1) {
-                anterior.setNext(null);
+    @Override
+    public T remove(T target) throws EmptyCollectionException {
+        if (isEmpty()) {
+            throw new EmptyCollectionException("The list is empty");
+        }
+
+        boolean found = false;
+
+        LinearNode<T> currentNode = this.head;
+        LinearNode<T> previousNode = null;
+
+        while (currentNode != null && !found) {
+            if (target.equals(currentNode.getElement())) {
+                found = true;
             } else {
-                anterior.setNext(anterior.getNext().getNext());
+                previousNode = currentNode;
+                currentNode = currentNode.getNext();
             }
         }
-        this.contador--;
+
+        if (!found) {
+            throw new EmptyCollectionException("The element was not found");
+        }
+
+        if (size() == 1) {
+            this.head = null;
+            this.tail = null;
+        } else if (currentNode.equals(this.head)) {
+            this.head = currentNode.getNext();
+        } else if (currentNode.equals(this.tail)) {
+            this.tail = previousNode;
+            this.tail.setNext(null);
+        } else {
+            previousNode.setNext(currentNode.getNext());
+        }
+
+        this.numberElements--;
+
+        return currentNode.getElement();
     }
 
-    public void printAll() {
-        LinearNode<T> elementoAtual = this.head;
-
-        if (elementoAtual != null) {
-            while (elementoAtual.getNext() != null) {
-                System.out.print(elementoAtual.getElement() + " -> ");
-                elementoAtual = elementoAtual.getNext();
-            }
-            System.out.println(elementoAtual.getElement());
-        }
+    @Override
+    public T first() {
+        return this.head.getElement();
     }
 
-    public T getData(int indice) throws Exception {
-        if (indice < 0 || indice >= this.contador) {
-            throw new Exception("Indice incorreto!");
-        }
-        LinearNode<T> elementoAtual = this.head;
-        for (int i = 0; i < indice; i++) {
-            elementoAtual = elementoAtual.getPrevious();
-        }
-        return elementoAtual.getElement();
+    @Override
+    public T last() {
+        return this.tail.getElement();
     }
 
-    public int dataExists(T dados) throws Exception {
+    @Override
+    public boolean contains(T target) throws EmptyCollectionException {
 
-        LinearNode<T> elementoAtual = this.head;
+        if (isEmpty()) {
+            throw new EmptyCollectionException("The list is empty");
+        }
 
-        for (int i = 0; i < this.contador; i++) {
-            if (elementoAtual.getElement().equals(dados)) {
-                return i;
+        boolean found = false;
+
+        LinearNode<T> currentNode = this.head;
+
+        while (currentNode != null && !found) {
+            if (target.equals(currentNode.getElement())) {
+                found = true;
             } else {
-                elementoAtual = elementoAtual.getNext();
+                currentNode = currentNode.getNext();
             }
         }
-        throw new Exception("Elemento não existe!");
+        return found;
     }
 
+    @Override
     public boolean isEmpty() {
-        return this.contador == 0;
+        return this.numberElements == 0;
     }
-    public int size(){
-        return this.contador;
+
+    @Override
+    public int size() {
+        return this.numberElements;
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedIterator<T>(this.head);
+    }
+
+    @Override
+    public String toString() {
+        LinearNode<T> currentNode = this.head;
+        String result = "";
+
+        while (currentNode != null) {
+            result = result + (currentNode.getElement().toString()) + "\n";
+            currentNode = currentNode.getNext();
+        }
+        return result;
+    }
+
+    public void printRecursive(LinearNode<T> node) {
+
+        if (node == null) {
+            return;
+        } else {
+
+            System.out.println(node.getElement());
+            printRecursive(node.getNext());
+        }
+    }
+
+    public LinearNode<T> getHead() {
+        return this.head;
+    }
+
+    public void replace(T existingItem, T newItem) throws EmptyCollectionException {
+        LinearNode<T> node = new LinearNode<>(existingItem);
+        LinearNode<T> search = this.head;
+        if (!this.contains(existingItem)) {
+            return;
+        }
+        while (search != null) {
+            if (search.getElement().equals(existingItem)) {
+                search.setElement(newItem);
+            } else {
+                replace(node.getNext().getElement(), newItem);
+            }
+        }
+
+    }
+
+    public LinkedList<T> reverseIt() {
+        LinearNode<T> rev = reverseOrder(this.getTail());
+        return new LinkedList<>(rev);
+    }
+
+    private LinearNode<T> reverseOrder(LinearNode<T> node) {
+
+        if (node == null) {
+            return null;
+        } else {
+            LinearNode<T> newN = new LinearNode<>(node.getElement());
+            newN.setNext(reverseOrder(node.getPrevious()));
+            if (newN.getNext() != null) {
+                newN.getNext().setPrevious(newN);
+            }
+            return newN;
+        }
+    }
+
+    public LinearNode<T> getTail() {
+        return tail;
     }
 }

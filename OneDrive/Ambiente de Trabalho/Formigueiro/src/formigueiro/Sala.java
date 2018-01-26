@@ -27,7 +27,7 @@ public class Sala implements ISala {
         this.x = x;
         this.y = y;
         this.descricao = descricao;
-        this.formigas = new colecoes.ArrayUnorderedList<>();
+        this.formigas = new colecoes.DoubleLinkedUnorderedList<>();
     }
 
     @Override

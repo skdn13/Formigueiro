@@ -5,14 +5,14 @@
  */
 package colecoes;
 
-import recursos.interfaces.collections.QueueADT;
+import recursos.interfaces.collections.StackADT;
 
 /**
  *
  * @author pmms8
  * @param <T>
  */
-public class LinkedStack<T> implements QueueADT<T> {
+public class LinkedStack<T> implements StackADT<T> {
 
     private int numberOfElements;
     private LinearNode<T> head;
@@ -51,7 +51,7 @@ public class LinkedStack<T> implements QueueADT<T> {
     }
 
     @Override
-    public void enqueue(T element) {
+    public void push(T element) {
         if (head == null) {
             head = new LinearNode<>(element);
         } else {
@@ -63,7 +63,7 @@ public class LinkedStack<T> implements QueueADT<T> {
     }
 
     @Override
-    public T dequeue() throws recursos.exceptions.EmptyCollectionException {
+    public T pop() throws recursos.exceptions.EmptyCollectionException {
         T element = null;
         LinearNode<T> atual = this.head;
         switch (this.numberOfElements) {
@@ -83,7 +83,7 @@ public class LinkedStack<T> implements QueueADT<T> {
     }
 
     @Override
-    public T first() throws recursos.exceptions.EmptyCollectionException {
+    public T peek() throws recursos.exceptions.EmptyCollectionException {
         if (isEmpty()) {
             throw new recursos.exceptions.EmptyCollectionException("Stack Vazia");
         }

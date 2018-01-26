@@ -27,7 +27,7 @@ public class Processamento extends Sala implements IProcessamento {
 
     public Processamento(int id, int x, int y, String descricao) {
         super(id, x, y, descricao);
-        formigas = new colecoes.ArrayUnorderedList<>();
+        formigas = new colecoes.DoubleLinkedUnorderedList<>();
         comida = new colecoes.LinkedQueue<>();
     }
 
@@ -41,12 +41,7 @@ public class Processamento extends Sala implements IProcessamento {
         if (this.comida.isEmpty()) {
             throw new EmptyCollectionException("Queue vazia!");
         }
-        int tamanho = 0;
-        if (this.comida.size() == 1) {
-            tamanho = this.comida.first().getTamanho();
-        } else {
-            tamanho = this.comida.last().getTamanho();
-        }
+        int tamanho = this.comida.first().getTamanho();
         if (tamanho == 1) {
             return this.retiraComida();
         } else {

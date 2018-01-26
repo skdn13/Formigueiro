@@ -20,9 +20,7 @@ import recursos.interfaces.collections.UnorderedListADT;
 public class Formiga implements IFormiga {
 
     private UnorderedListADT<IComida> comida;
-    private int capacidadeCarga;
-    private int id;
-    private int carga;
+    private int capacidadeCarga, id, carga;
 
     public void setCarga(int carga) {
         this.carga = carga;
@@ -91,6 +89,7 @@ public class Formiga implements IFormiga {
             IComida next = it.next();
             this.comida.remove(next);
         }
+        this.setCarga(0);
     }
 
     public UnorderedListADT<IComida> listarComidas() {
