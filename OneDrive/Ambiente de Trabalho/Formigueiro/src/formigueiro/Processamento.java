@@ -25,17 +25,34 @@ public class Processamento extends Sala implements IProcessamento {
     private LinkedQueue<Comida> comida;
     private int count = 1;
 
+    /**
+     *
+     * @param id
+     * @param x
+     * @param y
+     * @param descricao
+     */
     public Processamento(int id, int x, int y, String descricao) {
         super(id, x, y, descricao);
         formigas = new colecoes.DoubleLinkedUnorderedList<>();
         comida = new colecoes.LinkedQueue<>();
     }
 
+    /**
+     *
+     * @param ic
+     */
     @Override
     public void acrescentaComida(IComida ic) {
         this.comida.enqueue((Comida) ic);
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     * @throws ProcessedException
+     */
     @Override
     public IComida getProximaComida() throws EmptyCollectionException, ProcessedException {
         if (this.comida.isEmpty()) {
@@ -55,6 +72,11 @@ public class Processamento extends Sala implements IProcessamento {
         }
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     */
     public IComida retiraComida() throws recursos.exceptions.EmptyCollectionException {
         if (this.comida.isEmpty()) {
             throw new EmptyCollectionException("Sem comidas em queue!");
@@ -63,60 +85,111 @@ public class Processamento extends Sala implements IProcessamento {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumeroComidas() {
         return this.comida.size();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Iterator<IComida> iteratorComida() {
         return (Iterator<IComida>) this.comida.getIterator();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getId() {
         return super.getId();
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void setId(int i) {
         super.setId(i);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getX() {
         return super.getX();
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void setX(int i) {
         super.setX(i);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getY() {
         return super.getY();
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void setY(int i) {
         super.setY(i);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getDescricao() {
         return super.getDescricao();
     }
 
+    /**
+     *
+     * @param string
+     */
     @Override
     public void setDescricao(String string) {
         super.setDescricao(string);
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void entraFormiga(IFormiga i) {
         this.formigas.addToRear((Formiga) i);
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     * @throws EmptyCollectionException
+     * @throws ElementNotFoundException
+     */
     @Override
     public IFormiga saiFormiga(int i) throws EmptyCollectionException, ElementNotFoundException {
         if (this.listaFormigas().isEmpty()) {
@@ -131,6 +204,10 @@ public class Processamento extends Sala implements IProcessamento {
         throw new ElementNotFoundException("Formiga não existe!");
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public UnorderedListADT<IFormiga> listaFormigas() {
         return this.formigas;

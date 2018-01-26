@@ -17,37 +17,67 @@ public class Tunel implements ITunel {
     private int radious;
     private int id;
 
+    /**
+     *
+     * @param distance
+     * @param radious
+     * @param id
+     */
     public Tunel(int distance, int radious, int id) {
         this.distance = distance;
         this.radious = radious;
         this.id = id;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getDistance() {
         return this.distance;
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void setDistance(int i) {
         this.distance = i;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getRadious() {
         return this.radious;
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void setRadious(int i) {
         this.radious = i;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getId() {
         return this.id;
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void setId(int i) {
         this.id = i;

@@ -16,26 +16,47 @@ public class Comida implements IComida {
     private int id;
     private int tamanho;
 
+    /**
+     *
+     * @param id
+     * @param tamanho
+     */
     public Comida(int id, int tamanho) {
         this.id = id;
         this.tamanho = tamanho;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getId() {
         return this.id;
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void setId(int i) {
         this.id = i;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getTamanho() {
         return this.tamanho;
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void setTamanho(int i) {
         this.tamanho = i;

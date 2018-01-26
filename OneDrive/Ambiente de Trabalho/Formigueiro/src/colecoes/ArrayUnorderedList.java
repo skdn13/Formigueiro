@@ -3,10 +3,19 @@ package colecoes;
 import java.util.Iterator;
 import recursos.interfaces.collections.UnorderedListADT;
 
+/**
+ *
+ * @author pmms8
+ * @param <T>
+ */
 public class ArrayUnorderedList<T> extends ArrayList<T> implements UnorderedListADT<T> {
 
     private Iterator<T> iterator;
 
+    /**
+     *
+     * @param element
+     */
     @Override
     public void addToFront(T element) {
         T[] elementTemp = super.getList();
@@ -22,6 +31,10 @@ public class ArrayUnorderedList<T> extends ArrayList<T> implements UnorderedList
         super.setList(elementTemp);
     }
 
+    /**
+     *
+     * @param element
+     */
     @Override
     public void addToRear(T element) {
         T[] elementTemp = super.getList();
@@ -33,6 +46,11 @@ public class ArrayUnorderedList<T> extends ArrayList<T> implements UnorderedList
         super.setLast(super.getLast() + 1);
     }
 
+    /**
+     *
+     * @param element
+     * @param target
+     */
     @Override
     public void addAfter(T element, T target) {
 

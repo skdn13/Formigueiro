@@ -20,7 +20,11 @@ public class ArrayIterator<T> implements Iterator<T> {
     private int current;
     private T[] elements;
 
-    
+    /**
+     *
+     * @param collection
+     * @param size
+     */
     public ArrayIterator(T[] collection, int size) {
         this.elements = collection;
         this.size = size;

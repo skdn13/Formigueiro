@@ -16,16 +16,29 @@ public class Pair implements IPair {
     private Object first;
     private Object second;
 
+    /**
+     *
+     * @param first
+     * @param second
+     */
     public Pair(Object first, Object second) {
         this.first = first;
         this.second = second;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Object getFirst() {
         return this.first;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Object getSecond() {
         return this.second;

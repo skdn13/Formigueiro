@@ -15,12 +15,22 @@ import recursos.interfaces.collections.HeapADT;
  */
 public class LinkedHeap<T> extends LinkedBinaryTree<T> implements HeapADT<T> {
 
+    /**
+     *
+     */
     public HeapNode<T> lastNode;
 
+    /**
+     *
+     */
     public LinkedHeap() {
         super();
     }
 
+    /**
+     *
+     * @param obj
+     */
     @Override
     public void addElement(T obj) {
         HeapNode<T> node = new HeapNode<>(obj);
@@ -76,6 +86,11 @@ public class LinkedHeap<T> extends LinkedBinaryTree<T> implements HeapADT<T> {
         next.element = temp;
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public T removeMin() throws recursos.exceptions.EmptyCollectionException {
         if (isEmpty()) {
@@ -152,6 +167,11 @@ public class LinkedHeap<T> extends LinkedBinaryTree<T> implements HeapADT<T> {
         }
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public T findMin() throws EmptyCollectionException {
         if (isEmpty()) {

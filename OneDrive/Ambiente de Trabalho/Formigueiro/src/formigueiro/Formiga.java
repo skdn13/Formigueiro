@@ -22,10 +22,19 @@ public class Formiga implements IFormiga {
     private UnorderedListADT<IComida> comida;
     private int capacidadeCarga, id, carga;
 
+    /**
+     *
+     * @param carga
+     */
     public void setCarga(int carga) {
         this.carga = carga;
     }
 
+    /**
+     *
+     * @param id
+     * @param capacidadeCarga
+     */
     public Formiga(int id, int capacidadeCarga) {
         this.capacidadeCarga = capacidadeCarga;
         this.id = id;
@@ -33,26 +42,47 @@ public class Formiga implements IFormiga {
         this.comida = new colecoes.ArrayUnorderedList<>();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getCapacidadeCarga() {
         return this.capacidadeCarga;
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void setCapacidadeCarga(int i) {
         this.capacidadeCarga = i;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getId() {
         return this.id;
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void setId(int i) {
         this.id = i;
     }
 
+    /**
+     *
+     * @param ic
+     * @throws FormigaCheiaException
+     */
     @Override
     public void addComida(IComida ic) throws FormigaCheiaException {
         this.comida.addToRear((Comida) ic);
@@ -61,6 +91,12 @@ public class Formiga implements IFormiga {
         }
     }
 
+    /**
+     *
+     * @param position
+     * @return
+     * @throws ElementNotFoundException
+     */
     public IComida getComida(int position) throws ElementNotFoundException {
         Iterator<IComida> it = this.comida.iterator();
         while (it.hasNext()) {
@@ -72,17 +108,33 @@ public class Formiga implements IFormiga {
         throw new recursos.exceptions.ElementNotFoundException("Comida não existe");
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     * @throws EmptyCollectionException
+     * @throws ElementNotFoundException
+     */
     @Override
     public IComida removeComida(int i) throws EmptyCollectionException, ElementNotFoundException {
         Comida comida = (Comida) this.getComida(i);
         return this.comida.remove(comida);
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public IComida removeComida() throws EmptyCollectionException {
         return this.comida.removeLast();
     }
 
+    /**
+     *
+     * @throws ElementNotFoundException
+     */
     public void removeTodasAsComidas() throws ElementNotFoundException {
         Iterator<IComida> it = this.comida.iterator();
         while (it.hasNext()) {
@@ -92,10 +144,18 @@ public class Formiga implements IFormiga {
         this.setCarga(0);
     }
 
+    /**
+     *
+     * @return
+     */
     public UnorderedListADT<IComida> listarComidas() {
         return this.comida;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getCarga() {
         return this.carga;

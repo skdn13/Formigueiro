@@ -2,38 +2,75 @@ package colecoes;
 
 import java.util.Iterator;
 import recursos.exceptions.ElementNotFoundException;
+import recursos.exceptions.EmptyCollectionException;
 import recursos.interfaces.collections.BinaryTreeADT;
 
+/**
+ *
+ * @author pmms8
+ * @param <T>
+ */
 public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
 
+    /**
+     *
+     */
     public int count;
+
+    /**
+     *
+     */
     public BinaryTreeNode<T> root;
 
+    /**
+     *
+     */
     public LinkedBinaryTree() {
         this.count = 0;
         this.root = null;
     }
 
+    /**
+     *
+     * @param element
+     */
     public LinkedBinaryTree(T element) {
         this.count = 1;
         this.root = new BinaryTreeNode<>(element);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public T getRoot() {
         return (T) this.root;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isEmpty() {
         return (this.count == 0);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int size() {
         return this.count;
     }
 
+    /**
+     *
+     * @param targetElement
+     * @return
+     */
     @Override
     public boolean contains(T targetElement) {
         boolean found = false;
@@ -48,6 +85,12 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
         return found;
     }
 
+    /**
+     *
+     * @param targetElement
+     * @return
+     * @throws ElementNotFoundException
+     */
     public T find(T targetElement) throws ElementNotFoundException {
         BinaryTreeNode<T> current = findAgain(targetElement, root);
 
@@ -58,6 +101,10 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
         return (current.element);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Iterator<T> iteratorInOrder() {
         ArrayUnorderedList<T> tempList = new ArrayUnorderedList<>();
@@ -65,6 +112,11 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
         return tempList.iterator();
     }
 
+    /**
+     *
+     * @param node
+     * @param tempList
+     */
     protected void inorder(BinaryTreeNode<T> node, ArrayUnorderedList<T> tempList) {
         if (node != null) {
             inorder(node.left, tempList);
@@ -73,6 +125,10 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Iterator<T> iteratorPreOrder() {
         ArrayUnorderedList<T> tempList = new ArrayUnorderedList<>();
@@ -80,6 +136,11 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
         return tempList.iterator();
     }
 
+    /**
+     *
+     * @param node
+     * @param tempList
+     */
     protected void preOrder(BinaryTreeNode<T> node, ArrayUnorderedList<T> tempList) {
         if (node != null) {
             tempList.addToRear(node.element);
@@ -88,6 +149,10 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Iterator<T> iteratorPostOrder() {
         ArrayUnorderedList<T> tempList = new ArrayUnorderedList<>();
@@ -95,6 +160,11 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
         return tempList.iterator();
     }
 
+    /**
+     *
+     * @param node
+     * @param tempList
+     */
     protected void postOrder(BinaryTreeNode<T> node, ArrayUnorderedList<T> tempList) {
         if (node != null) {
             postOrder(node.left, tempList);
@@ -103,6 +173,11 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
         }
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public Iterator<T> iteratorLevelOrder() throws recursos.exceptions.EmptyCollectionException {
         ArrayUnorderedList<T> nodes = new ArrayUnorderedList<>();
@@ -142,6 +217,9 @@ public class LinkedBinaryTree<T> implements BinaryTreeADT<T> {
         return temp;
     }
 
+    /**
+     *
+     */
     public void removeAllElements() {
         count = 0;
         root = null;

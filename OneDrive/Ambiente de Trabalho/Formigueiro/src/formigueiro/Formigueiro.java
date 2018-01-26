@@ -34,6 +34,11 @@ public class Formigueiro implements IFormigueiro {
     private UnorderedListADT<IFormiga> formigas;
     private colecoes.Network<ISala> network;
 
+    /**
+     *
+     * @param entrada
+     * @throws ElementNotFoundException
+     */
     public Formigueiro(Sala entrada) throws ElementNotFoundException {
         formigas = new colecoes.DoubleLinkedUnorderedList<>();
         salas = new colecoes.DoubleLinkedUnorderedList<>();
@@ -44,31 +49,56 @@ public class Formigueiro implements IFormigueiro {
         this.tunelID = 0;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public ISala getEntrada() {
         return this.entrada;
     }
 
+    /**
+     *
+     * @param isala
+     */
     @Override
     public void setEntrada(ISala isala) {
         this.entrada = (Sala) isala;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Iterator<ISala> iterator() {
         return this.salas.iterator();
     }
 
+    /**
+     *
+     * @param isala
+     * @return
+     */
     @Override
     public Iterator<ISala> iteratorBFS(ISala isala) {
         return network.iteratorBFS(isala);
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public Iterator<ISala> iteratorBFS() {
         return network.iteratorBFS(entrada);
     }
 
+    /**
+     *
+     * @param isala
+     */
     @Override
     public void addSala(ISala isala) {
         try {
@@ -79,6 +109,12 @@ public class Formigueiro implements IFormigueiro {
 
     }
 
+    /**
+     *
+     * @param isala
+     * @param isala1
+     * @param i
+     */
     @Override
     public void ligaSala(ISala isala, ISala isala1, int i) {
         int distance = (int) Math.hypot(isala.getX() - isala1.getX(), isala.getY() - isala1.getY());
@@ -91,10 +127,17 @@ public class Formigueiro implements IFormigueiro {
         }
     }
 
+    /**
+     *
+     */
     public void printNetwork() {
         System.out.println(this.network.toString());
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getMaxY() {
         Iterator<ISala> salas = this.iterator();
@@ -108,6 +151,10 @@ public class Formigueiro implements IFormigueiro {
         return maxY;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getMaxX() {
         Iterator<ISala> salas = this.iterator();
@@ -121,6 +168,11 @@ public class Formigueiro implements IFormigueiro {
         return maxX;
     }
 
+    /**
+     *
+     * @param isala
+     * @return
+     */
     @Override
     public Iterator<IPair<ISala, ITunel>> ligacoesDe(ISala isala) {
         ArrayUnorderedList<IPair<ISala, ITunel>> iterador = new ArrayUnorderedList<>();
@@ -136,6 +188,12 @@ public class Formigueiro implements IFormigueiro {
         return (Iterator<IPair<ISala, ITunel>>) iterador.iterator();
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     * @throws ElementNotFoundException
+     */
     @Override
     public ISala getSalaFormiga(int i) throws ElementNotFoundException {
 
@@ -154,6 +212,12 @@ public class Formigueiro implements IFormigueiro {
         throw new ElementNotFoundException("Não existe nenhum sala com esse id");
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     * @throws ElementNotFoundException
+     */
     @Override
     public IFormiga getFormiga(int i) throws ElementNotFoundException {
         Iterator<IFormiga> formigasIt = this.formigas.iterator();
@@ -166,6 +230,12 @@ public class Formigueiro implements IFormigueiro {
         throw new ElementNotFoundException("Formiga não existe!");
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     * @throws ElementNotFoundException
+     */
     @Override
     public ISala getSala(int i) throws ElementNotFoundException {
 
@@ -181,6 +251,12 @@ public class Formigueiro implements IFormigueiro {
         return null;
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     * @throws ElementNotFoundException
+     */
     public ISala getSalaLista(int i) throws ElementNotFoundException {
 
         Iterator<ISala> salas = this.salas.iterator();
@@ -195,11 +271,24 @@ public class Formigueiro implements IFormigueiro {
         return null;
     }
 
+    /**
+     *
+     * @param isala
+     * @param isala1
+     * @return
+     */
     @Override
     public boolean vizinhos(ISala isala, ISala isala1) {
         return this.network.getElement(this.network.getElementIndex(isala), this.network.getElementIndex(isala1)) != null;
     }
 
+    /**
+     *
+     * @param i
+     * @param i1
+     * @return
+     * @throws ElementNotFoundException
+     */
     @Override
     public Iterator<ISala> iteratorShortestPath(int i, int i1) throws ElementNotFoundException {
         int position1 = i - 1, position2 = i1 - 1;
@@ -212,6 +301,13 @@ public class Formigueiro implements IFormigueiro {
         }
     }
 
+    /**
+     *
+     * @param idFormiga
+     * @param i1
+     * @return
+     * @throws ElementNotFoundException
+     */
     @Override
     public Iterator<ISala> iteratorMoveFormigaShortestPath(int idFormiga, int i1) throws ElementNotFoundException {
         int destino = i1 - 1;
@@ -229,6 +325,13 @@ public class Formigueiro implements IFormigueiro {
         }
     }
 
+    /**
+     *
+     * @param idFormiga
+     * @param i1
+     * @return
+     * @throws ElementNotFoundException
+     */
     @Override
     public Iterator<ISala> iteratorCarregaEMoveFormigaShortestPath(int idFormiga, int i1) throws ElementNotFoundException {
         Iterator<ISala> iterador = null;
@@ -260,6 +363,14 @@ public class Formigueiro implements IFormigueiro {
         }
     }
 
+    /**
+     *
+     * @param idFormiga
+     * @param idSalaDestino
+     * @return
+     * @throws ElementNotFoundException
+     * @throws Exception
+     */
     public Iterator<ISala> vaiParaSalaProcessamento(int idFormiga, int idSalaDestino) throws ElementNotFoundException, Exception {
         Formiga formiga = (Formiga) getFormiga(idFormiga);
         Processamento salaDestino = (Processamento) this.getSala(idSalaDestino);
@@ -270,6 +381,14 @@ public class Formigueiro implements IFormigueiro {
         return iteradorFinal;
     }
 
+    /**
+     *
+     * @param idFormiga
+     * @param idSalaDestino
+     * @return
+     * @throws ElementNotFoundException
+     * @throws Exception
+     */
     public Iterator<ISala> vaiParaSala(int idFormiga, int idSalaDestino) throws ElementNotFoundException, Exception {
         Formiga formiga = (Formiga) getFormiga(idFormiga);
         Sala salaDestino = (Sala) this.getSala(idSalaDestino);
@@ -279,6 +398,14 @@ public class Formigueiro implements IFormigueiro {
         return iteradorFinal;
     }
 
+    /**
+     *
+     * @param idFormiga
+     * @param idSalaDestino
+     * @return
+     * @throws ElementNotFoundException
+     * @throws Exception
+     */
     public Iterator<ISala> vaiParaSilo(int idFormiga, int idSalaDestino) throws ElementNotFoundException, Exception {
         Formiga formiga = (Formiga) getFormiga(idFormiga);
         Silo salaDestino = (Silo) this.getSala(idSalaDestino);
@@ -289,6 +416,14 @@ public class Formigueiro implements IFormigueiro {
         return iteradorFinal;
     }
 
+    /**
+     *
+     * @param formiga
+     * @param salaDestino
+     * @param iteradorFinal
+     * @return
+     * @throws Exception
+     */
     public Iterator<ISala> verificarSalaOrigem(Formiga formiga, Sala salaDestino, Iterator<ISala> iteradorFinal) throws Exception {
         if (this.getSalaFormiga(formiga.getId()) instanceof Silo) {
             return this.saiDoSilo(formiga, salaDestino, iteradorFinal);
@@ -300,6 +435,14 @@ public class Formigueiro implements IFormigueiro {
         throw new Exception();
     }
 
+    /**
+     *
+     * @param formiga
+     * @param salaDestino
+     * @param iteradorFinal
+     * @return
+     * @throws Exception
+     */
     public Iterator<ISala> saiDoProcessamento(Formiga formiga, Sala salaDestino, Iterator<ISala> iteradorFinal) throws Exception {
         Processamento origem = (Processamento) this.getSalaFormiga(formiga.getId());
         this.processaComida(origem, formiga, salaDestino);
@@ -315,6 +458,14 @@ public class Formigueiro implements IFormigueiro {
         return iteradorFinal;
     }
 
+    /**
+     *
+     * @param formiga
+     * @param salaDestino
+     * @param iteradorFinal
+     * @return
+     * @throws Exception
+     */
     public Iterator<ISala> saiDoSilo(Formiga formiga, Sala salaDestino, Iterator<ISala> iteradorFinal) throws Exception {
         Silo origem = (Silo) this.getSalaFormiga(formiga.getId());
         this.descarregaSilo(origem, formiga, salaDestino);
@@ -330,6 +481,14 @@ public class Formigueiro implements IFormigueiro {
         return iteradorFinal;
     }
 
+    /**
+     *
+     * @param formiga
+     * @param salaDestino
+     * @param iteradorFinal
+     * @return
+     * @throws Exception
+     */
     public Iterator<ISala> saiDaSala(Formiga formiga, Sala salaDestino, Iterator<ISala> iteradorFinal) throws Exception {
         Sala origem = (Sala) this.getSalaFormiga(formiga.getId());
         this.saiFormigaSala(origem, formiga, salaDestino);
@@ -345,6 +504,13 @@ public class Formigueiro implements IFormigueiro {
         return iteradorFinal;
     }
 
+    /**
+     *
+     * @param formiga
+     * @param salaDestino
+     * @param origem
+     * @throws ElementNotFoundException
+     */
     public void entregaComida(Formiga formiga, Sala salaDestino, Sala origem) throws ElementNotFoundException {
 
         Iterator<IComida> it = formiga.listarComidas().iterator();
@@ -365,6 +531,12 @@ public class Formigueiro implements IFormigueiro {
         origem.saiFormiga(formiga.getId());
     }
 
+    /**
+     *
+     * @param origem
+     * @param formiga
+     * @param salaDestino
+     */
     public void processaComida(Processamento origem, Formiga formiga, Sala salaDestino) {
         int cargaAtual = 0;
         while (true) {
@@ -387,6 +559,12 @@ public class Formigueiro implements IFormigueiro {
         }
     }
 
+    /**
+     *
+     * @param origem
+     * @param formiga
+     * @param salaDestino
+     */
     public void descarregaSilo(Silo origem, Formiga formiga, Sala salaDestino) {
         int cargaAtual = 0;
         while (true) {
@@ -407,6 +585,12 @@ public class Formigueiro implements IFormigueiro {
         }
     }
 
+    /**
+     *
+     * @param origem
+     * @param formiga
+     * @param salaDestino
+     */
     public void saiFormigaSala(Sala origem, Formiga formiga, Sala salaDestino) {
         int cargaAtual = formiga.getCarga();
         while (true) {
@@ -426,6 +610,11 @@ public class Formigueiro implements IFormigueiro {
         }
     }
 
+    /**
+     *
+     * @param itrtr
+     * @return
+     */
     @Override
     public int custoDoCaminho(Iterator<ISala> itrtr) {
         int custo = 0, position = 0;
@@ -439,6 +628,12 @@ public class Formigueiro implements IFormigueiro {
         return custo;
     }
 
+    /**
+     *
+     * @param i
+     * @param i1
+     * @return
+     */
     @Override
     public IFormiga criaFormiga(int i, int i1) {
         Formiga formiga = new Formiga(i, i1);
@@ -446,12 +641,26 @@ public class Formigueiro implements IFormigueiro {
         return formiga;
     }
 
+    /**
+     *
+     * @param i
+     * @param i1
+     * @return
+     */
     @Override
     public IComida criaComida(int i, int i1) {
         Comida comida = new Comida(i, i1);
         return comida;
     }
 
+    /**
+     *
+     * @param i
+     * @param string
+     * @param i1
+     * @param i2
+     * @return
+     */
     @Override
     public ISala criaSala(int i, String string, int i1, int i2) {
         Sala sala = new Sala(i, i1, i2, string);
@@ -459,6 +668,14 @@ public class Formigueiro implements IFormigueiro {
         return sala;
     }
 
+    /**
+     *
+     * @param i
+     * @param string
+     * @param i1
+     * @param i2
+     * @return
+     */
     @Override
     public ISilo criaSilo(int i, String string, int i1, int i2) {
         Silo silo = new Silo(i, i1, i2, string);
@@ -466,6 +683,14 @@ public class Formigueiro implements IFormigueiro {
         return silo;
     }
 
+    /**
+     *
+     * @param i
+     * @param string
+     * @param i1
+     * @param i2
+     * @return
+     */
     @Override
     public IProcessamento criaProcessamento(int i, String string, int i1, int i2) {
         Processamento salaProcessamento = new Processamento(i, i1, i2, string);

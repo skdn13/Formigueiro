@@ -4,6 +4,11 @@ import java.util.Iterator;
 import recursos.exceptions.EmptyCollectionException;
 import recursos.interfaces.collections.ListADT;
 
+/**
+ *
+ * @author pmms8
+ * @param <T>
+ */
 public class DoubleLinkedList<T> implements ListADT<T> {
 
     private DoubleNode<T> front;
@@ -19,6 +24,11 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         this.numberOfElements = 0;
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public T removeFirst() throws EmptyCollectionException {
         if (isEmpty()) {
@@ -36,6 +46,11 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         return first;
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public T removeLast() throws EmptyCollectionException {
         T last;
@@ -57,6 +72,12 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         return last;
     }
 
+    /**
+     *
+     * @param element
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public T remove(T element) throws EmptyCollectionException {
         T removed;
@@ -79,6 +100,11 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         return removed;
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public T first() throws EmptyCollectionException {
         if (isEmpty()) {
@@ -87,6 +113,11 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         return this.front.getElement();
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public T last() throws EmptyCollectionException {
         if (isEmpty()) {
@@ -95,16 +126,29 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         return this.rear.getElement();
     }
 
+    /**
+     *
+     * @param target
+     * @return
+     */
     @Override
     public boolean contains(T target) {
         return find(target) != null;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isEmpty() {
         return this.numberOfElements == 0;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int size() {
         return this.numberOfElements;
@@ -137,26 +181,50 @@ public class DoubleLinkedList<T> implements ListADT<T> {
         return result;
     }
 
+    /**
+     *
+     * @return
+     */
     public DoubleNode<T> getFront() {
         return front;
     }
 
+    /**
+     *
+     * @param front
+     */
     public void setFront(DoubleNode<T> front) {
         this.front = front;
     }
 
+    /**
+     *
+     * @return
+     */
     public DoubleNode<T> getRear() {
         return rear;
     }
 
+    /**
+     *
+     * @param rear
+     */
     public void setRear(DoubleNode<T> rear) {
         this.rear = rear;
     }
 
+    /**
+     *
+     * @return
+     */
     public int getNumberOfElements() {
         return numberOfElements;
     }
 
+    /**
+     *
+     * @param numberOfElements
+     */
     public void setNumberOfElements(int numberOfElements) {
         this.numberOfElements = numberOfElements;
     }

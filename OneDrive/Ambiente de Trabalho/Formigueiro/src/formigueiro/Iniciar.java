@@ -22,6 +22,7 @@ public class Iniciar {
     /**
      * @param args the command line arguments
      * @throws recursos.exceptions.ElementNotFoundException
+     * @throws recursos.exceptions.ProcessedException
      */
     public static void main(String[] args) throws ElementNotFoundException, EmptyCollectionException, ProcessedException {
         //Inicializar variáveis

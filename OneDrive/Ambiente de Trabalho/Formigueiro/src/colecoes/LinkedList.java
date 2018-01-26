@@ -4,18 +4,30 @@ import java.util.Iterator;
 import recursos.exceptions.EmptyCollectionException;
 import recursos.interfaces.collections.ListADT;
 
+/**
+ *
+ * @author pmms8
+ * @param <T>
+ */
 public class LinkedList<T> implements ListADT<T> {
 
     private int numberElements;
     private LinearNode<T> head;
     private LinearNode<T> tail;
 
+    /**
+     *
+     */
     public LinkedList() {
         this.numberElements = 0;
         this.head = null;
         this.tail = null;
     }
 
+    /**
+     *
+     * @param front
+     */
     public LinkedList(LinearNode<T> front) {
         this.numberElements = 0;
         this.head = front;
@@ -27,6 +39,10 @@ public class LinkedList<T> implements ListADT<T> {
 
     }
 
+    /**
+     *
+     * @param element
+     */
     public void add(T element) {
         if (head == null) {
             head = new LinearNode<>(element);
@@ -44,6 +60,11 @@ public class LinkedList<T> implements ListADT<T> {
         this.numberElements++;
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public T removeFirst() throws EmptyCollectionException {
         if (isEmpty()) {
@@ -60,6 +81,11 @@ public class LinkedList<T> implements ListADT<T> {
         return node.getElement();
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public T removeLast() throws EmptyCollectionException {
         if (isEmpty()) {
@@ -85,6 +111,12 @@ public class LinkedList<T> implements ListADT<T> {
         return node.getElement();
     }
 
+    /**
+     *
+     * @param target
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public T remove(T target) throws EmptyCollectionException {
         if (isEmpty()) {
@@ -126,16 +158,30 @@ public class LinkedList<T> implements ListADT<T> {
         return currentNode.getElement();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public T first() {
         return this.head.getElement();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public T last() {
         return this.tail.getElement();
     }
 
+    /**
+     *
+     * @param target
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public boolean contains(T target) throws EmptyCollectionException {
 
@@ -157,11 +203,19 @@ public class LinkedList<T> implements ListADT<T> {
         return found;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isEmpty() {
         return this.numberElements == 0;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int size() {
         return this.numberElements;
@@ -184,6 +238,10 @@ public class LinkedList<T> implements ListADT<T> {
         return result;
     }
 
+    /**
+     *
+     * @param node
+     */
     public void printRecursive(LinearNode<T> node) {
 
         if (node == null) {
@@ -195,10 +253,20 @@ public class LinkedList<T> implements ListADT<T> {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public LinearNode<T> getHead() {
         return this.head;
     }
 
+    /**
+     *
+     * @param existingItem
+     * @param newItem
+     * @throws EmptyCollectionException
+     */
     public void replace(T existingItem, T newItem) throws EmptyCollectionException {
         LinearNode<T> node = new LinearNode<>(existingItem);
         LinearNode<T> search = this.head;
@@ -215,6 +283,10 @@ public class LinkedList<T> implements ListADT<T> {
 
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedList<T> reverseIt() {
         LinearNode<T> rev = reverseOrder(this.getTail());
         return new LinkedList<>(rev);
@@ -234,6 +306,10 @@ public class LinkedList<T> implements ListADT<T> {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public LinearNode<T> getTail() {
         return tail;
     }

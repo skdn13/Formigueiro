@@ -22,6 +22,13 @@ public class Sala implements ISala {
     private UnorderedListADT<IFormiga> formigas;
     private String descricao;
 
+    /**
+     *
+     * @param id
+     * @param x
+     * @param y
+     * @param descricao
+     */
     public Sala(int id, int x, int y, String descricao) {
         this.id = id;
         this.x = x;
@@ -30,51 +37,94 @@ public class Sala implements ISala {
         this.formigas = new colecoes.DoubleLinkedUnorderedList<>();
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getId() {
         return this.id;
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void setId(int i) {
         this.id = i;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getX() {
         return this.x;
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void setX(int i) {
         this.x = i;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int getY() {
         return this.y;
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void setY(int i) {
         this.y = i;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String getDescricao() {
         return this.descricao;
     }
 
+    /**
+     *
+     * @param string
+     */
     @Override
     public void setDescricao(String string) {
         this.descricao = string;
     }
 
+    /**
+     *
+     * @param i
+     */
     @Override
     public void entraFormiga(IFormiga i) {
         this.formigas.addToRear((Formiga) i);
     }
 
+    /**
+     *
+     * @param i
+     * @return
+     * @throws EmptyCollectionException
+     * @throws ElementNotFoundException
+     */
     @Override
     public IFormiga saiFormiga(int i) throws EmptyCollectionException, ElementNotFoundException {
         if (this.formigas.isEmpty()) {
@@ -91,6 +141,10 @@ public class Sala implements ISala {
         throw new ElementNotFoundException("Formiga não existe!");
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public UnorderedListADT<IFormiga> listaFormigas() {
         return this.formigas;

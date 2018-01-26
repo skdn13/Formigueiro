@@ -3,10 +3,19 @@ package colecoes;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/**
+ *
+ * @author pmms8
+ * @param <T>
+ */
 public class DoubleIterator<T> implements Iterator<T> {
 
     private DoubleNode<T> current;
 
+    /**
+     *
+     * @param list
+     */
     public DoubleIterator(DoubleNode<T> list) {
         this.current = list;
     }

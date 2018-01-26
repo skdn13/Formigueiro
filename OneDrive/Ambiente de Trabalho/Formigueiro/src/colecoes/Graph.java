@@ -3,11 +3,31 @@ package colecoes;
 import java.util.*;
 import recursos.interfaces.collections.GraphADT;
 
+/**
+ *
+ * @author pmms8
+ * @param <T>
+ */
 public class Graph<T> implements GraphADT<T> {
 
+    /**
+     *
+     */
     protected final int DEFAULT_CAPACITY = 10;
+
+    /**
+     *
+     */
     protected int numVertices;   // number of vertices in the graph
+
+    /**
+     *
+     */
     protected boolean[][] adjMatrix;   // adjacency matrix
+
+    /**
+     *
+     */
     protected T[] vertices;   // values of vertices
 
     /**

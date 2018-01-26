@@ -3,14 +3,26 @@ package colecoes;
 import java.util.Iterator;
 import recursos.interfaces.collections.UnorderedListADT;
 
+/**
+ *
+ * @author pmms8
+ * @param <T>
+ */
 public class DoubleLinkedUnorderedList<T> extends DoubleLinkedList<T> implements UnorderedListADT<T> {
 
     private Iterator<T> iterator;
 
+    /**
+     *
+     */
     public DoubleLinkedUnorderedList() {
         super();
     }
 
+    /**
+     *
+     * @param element
+     */
     @Override
     public void addToFront(T element) {
         DoubleNode node = new DoubleNode(element);
@@ -29,6 +41,10 @@ public class DoubleLinkedUnorderedList<T> extends DoubleLinkedList<T> implements
         super.setNumberOfElements(super.getNumberOfElements() + 1);
     }
 
+    /**
+     *
+     * @param element
+     */
     @Override
     public void addToRear(T element) {
         DoubleNode node = new DoubleNode(element);
@@ -48,6 +64,11 @@ public class DoubleLinkedUnorderedList<T> extends DoubleLinkedList<T> implements
 
     }
 
+    /**
+     *
+     * @param element
+     * @param target
+     */
     @Override
     public void addAfter(T element, T target) {
         DoubleNode nodeTemp = super.getFront();

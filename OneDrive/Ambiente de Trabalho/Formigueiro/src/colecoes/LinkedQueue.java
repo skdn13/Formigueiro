@@ -5,6 +5,7 @@
  */
 package colecoes;
 
+import recursos.exceptions.EmptyCollectionException;
 import recursos.interfaces.collections.QueueADT;
 
 /**
@@ -18,17 +19,28 @@ public class LinkedQueue<T> implements QueueADT<T> {
     private LinearNode<T> head;
     private LinearNode<T> tail;
 
+    /**
+     *
+     */
     public LinkedQueue() {
         this.numberOfElements = 0;
         this.head = null;
         this.tail = null;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public boolean isEmpty() {
         return this.numberOfElements == 0;
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public int size() {
         return this.numberOfElements;
@@ -48,6 +60,10 @@ public class LinkedQueue<T> implements QueueADT<T> {
         return output;
     }
 
+    /**
+     *
+     * @param element
+     */
     @Override
     public void enqueue(T element) {
 
@@ -67,6 +83,11 @@ public class LinkedQueue<T> implements QueueADT<T> {
         this.numberOfElements++;
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public T dequeue() throws recursos.exceptions.EmptyCollectionException {
         T element = null;
@@ -88,6 +109,11 @@ public class LinkedQueue<T> implements QueueADT<T> {
         return element;
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     */
     @Override
     public T first() throws recursos.exceptions.EmptyCollectionException {
         if (isEmpty()) {
@@ -96,6 +122,11 @@ public class LinkedQueue<T> implements QueueADT<T> {
         return this.head.getElement();
     }
 
+    /**
+     *
+     * @return
+     * @throws EmptyCollectionException
+     */
     public T last() throws recursos.exceptions.EmptyCollectionException {
         if (isEmpty()) {
             throw new recursos.exceptions.EmptyCollectionException("Queue Vazia");
@@ -103,6 +134,10 @@ public class LinkedQueue<T> implements QueueADT<T> {
         return this.tail.getElement();
     }
 
+    /**
+     *
+     * @return
+     */
     public LinkedIterator<?> getIterator() {
         return new LinkedIterator<>(this.head);
     }

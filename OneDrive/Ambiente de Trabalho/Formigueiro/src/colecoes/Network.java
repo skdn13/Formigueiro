@@ -6,6 +6,11 @@ import recursos.exceptions.ElementNotFoundException;
 import recursos.interfaces.ITunel;
 import recursos.interfaces.collections.NetworkADT;
 
+/**
+ *
+ * @author pmms8
+ * @param <T>
+ */
 public class Network<T> extends Graph<T> implements NetworkADT<T> {
 
     private ITunel[][] adjMatrix;    // adjacency matrix
@@ -95,6 +100,13 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         return result;
     }
 
+    /**
+     *
+     * @param t
+     * @param t1
+     * @param itunel
+     * @throws ElementNotFoundException
+     */
     @Override
     public void addEdge(T t, T t1, ITunel itunel) throws ElementNotFoundException {
         addEdge(super.getIndex(t), super.getIndex(t1), itunel);
@@ -117,6 +129,12 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         }
     }
 
+    /**
+     *
+     * @param index1
+     * @param index2
+     * @return
+     */
     public ITunel getElement(int index1, int index2) {
         return this.adjMatrix[index1][index2];
     }
@@ -446,6 +464,13 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
 
     }
 
+    /**
+     *
+     * @param startIndex
+     * @param targetIndex
+     * @param cargaFormiga
+     * @return
+     */
     protected Iterator<Integer> iteratorShortestPathIndicesTunel(int startIndex, int targetIndex, int cargaFormiga) {
         int index;
         double weight;
@@ -577,6 +602,13 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         return templist.iterator();
     }
 
+    /**
+     *
+     * @param startIndex
+     * @param targetIndex
+     * @param cargaFormiga
+     * @return
+     */
     public Iterator<T> iteratorShortestPathTunel(int startIndex, int targetIndex, int cargaFormiga) {
         ArrayUnorderedList templist = new ArrayUnorderedList();
         if (!indexIsValid(startIndex) || !indexIsValid(targetIndex)) {
@@ -802,6 +834,10 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         adjMatrix = largerAdjMatrix;
     }
 
+    /**
+     *
+     * @return
+     */
     public Iterator<T> iteratorVertex() {
         ArrayUnorderedList<T> vertices = new ArrayUnorderedList<>();
         for (int i = 0; i < numVertices; i++) {
@@ -810,6 +846,11 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         return (Iterator<T>) vertices.iterator();
     }
 
+    /**
+     *
+     * @param position
+     * @return
+     */
     public Iterator<T> iteratorNeighbour(int position) {
         ArrayUnorderedList<T> neighbours = new ArrayUnorderedList<>();
         for (int i = 0; i < numVertices; i++) {
@@ -820,6 +861,11 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         return (Iterator<T>) neighbours.iterator();
     }
 
+    /**
+     *
+     * @param vertex
+     * @return
+     */
     public int getElementIndex(T vertex) {
         for (int i = 0; i < this.numVertices; i++) {
             if (vertices[i].equals(vertex)) {
@@ -829,6 +875,10 @@ public class Network<T> extends Graph<T> implements NetworkADT<T> {
         return 0;
     }
 
+    /**
+     *
+     * @return
+     */
     public int numberOfVertices() {
         return this.numVertices;
     }

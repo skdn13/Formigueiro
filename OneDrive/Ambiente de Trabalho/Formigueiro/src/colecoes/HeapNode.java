@@ -11,6 +11,10 @@ package colecoes;
  * @param <T>
  */
 public class HeapNode<T> extends BinaryTreeNode<T> {
+
+    /**
+     *
+     */
     protected HeapNode<T> parent;
     
     HeapNode(T obj){
