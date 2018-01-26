@@ -36,10 +36,14 @@ public class Iniciar {
         Silo sala7 = (Silo) formigueiro.criaSilo(7, "Sala 7", 800, 150);
 
         //Adicionar formigas e comida às salas
-        sala3.acrescentaComida(formigueiro.criaComida(1, 4));
+        sala7.guardaComida(formigueiro.criaComida(1, 5));
+        sala7.guardaComida(formigueiro.criaComida(2, 5));
+        sala7.guardaComida(formigueiro.criaComida(3, 5));
+        sala7.guardaComida(formigueiro.criaComida(4, 5));
+        sala7.guardaComida(formigueiro.criaComida(5, 5));
         //sala5.guardaComida(formigueiro.criaComida(2, 2));
         //sala5.guardaComida(formigueiro.criaComida(3, 2));
-        sala3.entraFormiga(formigueiro.criaFormiga(1, 2));
+        sala7.entraFormiga(formigueiro.criaFormiga(1, 2));
 
         //Adicionar as salas ao formigueiro (Exceto a sala de entrada)
         formigueiro.addSala(sala2);

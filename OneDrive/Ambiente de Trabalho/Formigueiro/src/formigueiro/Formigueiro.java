@@ -548,11 +548,7 @@ public class Formigueiro implements IFormigueiro {
                 formiga.addComida(comida);
             } catch (ProcessedException ex) {
                 ex.printStackTrace();
-            } catch (EmptyCollectionException ex) {
-                ex.printStackTrace();
-                return;
-            } catch (FormigaCheiaException ex) {
-                origem.acrescentaComida(comida);
+            } catch (EmptyCollectionException | FormigaCheiaException ex) {
                 ex.printStackTrace();
                 return;
             }
@@ -574,11 +570,7 @@ public class Formigueiro implements IFormigueiro {
                 cargaAtual++;
                 formiga.setCarga(cargaAtual);
                 formiga.addComida(comida);
-            } catch (EmptyCollectionException ex) {
-                ex.printStackTrace();
-                return;
-            } catch (FormigaCheiaException ex) {
-                origem.guardaComida(comida);
+            } catch (EmptyCollectionException | FormigaCheiaException ex) {
                 ex.printStackTrace();
                 return;
             }
